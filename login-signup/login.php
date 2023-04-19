@@ -14,11 +14,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     if (
         $username == $signInDataAsWriter['username'] && $password == $signInDataAsWriter['password']
     ) {
-        header('location: signup.php');
+        header('location: home.php');
         $_SESSION["userdata"] = $signInDataAsWriter;
     } else if ($username == $signInDataAsReader['username'] && $password == $signInDataAsReader['password']) {
 
-        header('location: signup.php');
+        header('location: ../home.php');
         $_SESSION["userdata"] = $signInDataAsReader;
     } else {
         $error = "Incorrect username or password.";
