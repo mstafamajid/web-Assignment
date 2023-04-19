@@ -1,5 +1,8 @@
-<?php 
+<?php
 session_start();
-if(isset($_SESSION["userdata"])){
-    echo "welcome".$_SESSION['userdata']['name'];
+$logoPath = "assets\logo.svg";
+if (isset($_SESSION["userdata"])) {
+    //echo "welcome".$_SESSION['userdata']['name'];
 }
+include "includes\\navbar.php";
+?>
