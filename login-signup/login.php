@@ -2,7 +2,7 @@
 //TODO: getting username/email and passwords to auth
 //TODO: getting data if the user that have account
 session_start();
-$signInDataAsWriter = array('name' => "mustafa majid", 'username' => "mustafa", 'email' => "mstafa@gmail.com", 'password' => "mstafa123", 'type' => "writer");
+$signInDataAsWriter = array('name' => "mustafa majid", 'username' => "mustafa", 'email' => "mstafa@gmail.com", 'password' => "mustafa123", 'type' => "writer");
 $signInDataAsReader = array('name' => "blnd zyad", 'username' => "blnd", 'email' => "blnd@gmail.com", 'password' => "blnd123", 'type' => "reader");
 $error = "";
 if (isset($_POST['username']) && isset($_POST['password'])) {
@@ -14,11 +14,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     if (
         $username == $signInDataAsWriter['username'] && $password == $signInDataAsWriter['password']
     ) {
-        header('location: home.php');
+        header('location:../home.php');
         $_SESSION["userdata"] = $signInDataAsWriter;
     } else if ($username == $signInDataAsReader['username'] && $password == $signInDataAsReader['password']) {
 
-        header('location: ../home.php');
+        header('location:../home.php');
         $_SESSION["userdata"] = $signInDataAsReader;
     } else {
         $error = "Incorrect username or password.";
