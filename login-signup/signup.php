@@ -2,7 +2,7 @@
 //TODO: getting usernames and emails to check that if that username and email is used or not
 //TODO: validation for email field
 //TODO: sending data to databse to store
-
+$flag = 0;
 $nameError = "";
 $usernameError = "";
 $emailError = "";
@@ -11,25 +11,37 @@ $confirmPasswordError = "";
 $signupData = array('name' => "", 'username' => "", 'email' => "", 'password' => "", 'type' => "");
 
 if (isset($_POST["submit"])) {
-    if (empty($_POST["name"]))
+    if (empty($_POST["name"])) {
+        $flag = 1;
         $nameError = "please enter your name";
-    else $signupData['name'] = $_POST["name"];
-    if (empty($_POST["username"]))
+    } else $signupData['name'] = $_POST["name"];
+    if (empty($_POST["username"])) {
+        $flag = 1;
         $usernameError = "please enter your username";
-    else $signupData['username'] = $_POST["username"];
-    if (empty($_POST["email"]))
+    } else $signupData['username'] = $_POST["username"];
+    if (empty($_POST["email"])) {
+        $flag = 1;
         $emailError = "please enter your email";
-    else $signupData['name'] = $_POST["name"];
-    if (empty($_POST["password"]))
+    } else $signupData['name'] = $_POST["name"];
+    if (empty($_POST["password"])) {
+        $flag = 1;
         $passwordError = "please enter your password";
-    else $signupData['name'] = $_POST["name"];
-    if (empty($_POST["confirm-password"]))
+    } else $signupData['name'] = $_POST["name"];
+    if (empty($_POST["confirm-password"])) {
+        $flag = 1;
         $confirmPasswordError = "please enter your password";
-    else {
+    } else {
         if (hash_equals($_POST["confirm-password"], $_POST["password"]))
             $signupData["password"] = $_POST['password'];
-        else $confirmPasswordError = "please enter the same password";
+
+        else {
+            $flag = 1;
+
+            $confirmPasswordError = "please enter the same password";
+        }
     }
+
+    if ($flag == 0) header('location: login.php');
 }
 
 ?>
