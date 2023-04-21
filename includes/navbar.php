@@ -51,9 +51,9 @@ gap: 30px;
             </div>
             <div>
                 <ul>
-                    <li><a href="">Home</a></li>
+                    <li><a href="home.php">Home</a></li>
                     <li><a href="">Books</a></li>
-                    <li><a href="">Profile</a></li>
+                    <li><a href="profile.php">Profile</a></li>
                 </ul>
             </div>
             <div id='srch-ic'>
