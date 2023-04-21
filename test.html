@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<>
+    <div class='posts'>
+        //header of post
+        <div class='profile-info'>
+            <div class='picture-profile'></div>
+            <h3 class='name'>" . $userdata['name'] . "</h3>
+            <h4 class='username'>" . $userdata['username'] . "</h4>
+            <h4 class='book-name'>" . $dummyData[0]['book-title'] . "</h4>
+        </div>
+        //content of post
+        <div class='post-info'>
+            <h2 class='title'>" . $dummyData[0]['post-title'] . "</h2>
+            <p class='post-desc'>" . $dummyData[0]['post-desc'] . "</p>
+        </div>
+    
+        <div class='reactions-info'>
+            <div class='like-num'>" . $dummyData[0]['number-like'] . "</div>
+            <div class='comment-num'>" . $dummyData[0]['number-comment'] . "</div>
+        </div>
+        <hr color='red'>
+        <div class='buttons'>
+            <div class='like'></div>
+            <div class='comment'></div>
+        </div>
+        </div>
+        </body>
+    </div>
+</body>
+</html>
