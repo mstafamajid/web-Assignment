@@ -52,7 +52,7 @@ gap: 30px;
             <div>
                 <ul>
                     <li><a href="home.php">Home</a></li>
-                    <li><a href="">Books</a></li>
+                    <li><a href="books.php">Books</a></li>
                     <li><a href="profile.php">Profile</a></li>
                 </ul>
             </div>
