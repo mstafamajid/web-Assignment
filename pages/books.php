@@ -1,22 +1,23 @@
 <?php 
+//TODO: retrive id with book and paths
 session_start();
 $logoPath = "../assets\logo.svg";
 include '../includes/navbar.php';
 $Allbooks = array(
     
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title1' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title2' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title3' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title4' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title5' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title6' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title7' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title8' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title9' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title10' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title11' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title12' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title13' ), 
 );
 
 ?>
@@ -61,13 +62,17 @@ border-radius: 15.8789px;
            <h2>".$Allbooks[$i]['title']."</h2>
        </div>
        <div class='seepost'>
-<a href='posts_of_book.php'>See posts</a>
+       <form action='posts_of_book.php' method='post'>
+       <input type='hidden' name='book_info' value='".json_encode($Allbooks[$i])."'>
+       <input type='submit' value='See posts'>
+   </form>
        </div>
    </div>
        ";
 
     }
     ?>
+
     </div>
 </body>
 </html>

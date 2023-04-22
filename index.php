@@ -14,11 +14,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     if (
         $username == $signInDataAsWriter['username'] && $password == $signInDataAsWriter['password']
     ) {
-        header('location:../pages/home.php');
+        header('location:pages/home.php');
         $_SESSION["userdata"] = $signInDataAsWriter;
     } else if ($username == $signInDataAsReader['username'] && $password == $signInDataAsReader['password']) {
 
-        header('location:../pages/home.php');
+        header('location:pages/home.php');
         $_SESSION["userdata"] = $signInDataAsReader;
     } else {
         $error = "Incorrect username or password.";
@@ -43,7 +43,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 <body>
     <div>
         <h2>Login Page</h2>
-        <form action="login.php" method="POST">
+        <form action="#" method="POST">
             <label for="username">Username:</label>
             <input type="text" name="username"><br><br>
             <label for="password">Password:</label>
@@ -52,7 +52,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             <input type="submit" value="Login"><br><br>
     </div>
     <div>
-        <a href="signup.php">Sign up now</a>
+        <a href="login-signup/signup.php">Sign up now</a>
     </div>
 
     <?php
