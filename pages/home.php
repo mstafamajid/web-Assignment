@@ -150,8 +150,8 @@ include "../includes/navbar.php";
         <div class="side">
             <ul>
                 <li><a href=""><?php echo $userdata['name'] ?></a></li>
-                <li><a href="">add books</a></li>
-                <li><a href="">add posts</a></li>
+                <li><a href="../pages/addbook.php">add books</a></li>
+                <li><a href="../pages/addposts.php">add posts</a></li>
                 <li><a href="">books</a></li>
             </ul>
         </div>
