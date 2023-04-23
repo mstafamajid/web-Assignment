@@ -87,74 +87,40 @@ include "../includes/navbar.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/home.css">
     <title>Document</title>
 
-    <style>
-        .container {
-            display: flex;
-            flex-direction: row;
-            gap: 30px;
-            height: 100%;
-            width: 100%;
-        }
 
-        .side {
-            display: flex;
-            background-color: green;
-        }
-
-        .side ul li {
-            list-style: none;
-        }
-
-        .side ul li a {
-            text-decoration: none;
-            color: #FFF;
-        }
-
-        .home-feed {
-
-            padding-top: 50px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 90px;
-            background-color: grey;
-            height: 100%;
-
-            width: 80%;
-        }
-
-        .posts {
-
-            height: 340px;
-            width: 638px;
-            background-color: #FFF;
-            border-radius: 20px;
-        }
-
-        .buttons {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            height: 30px;
-            width: 100%;
-            background-color: red;
-            border-radius: 0px 0px 20px 20px;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="container">
+    <section class="container">
+
         <div class="side">
-            <ul>
-                <li><a href=""><?php echo $userdata['name'] ?></a></li>
-                <li><a href="../pages/addbook.php">add books</a></li>
-                <li><a href="../pages/addposts.php">add posts</a></li>
-                <li><a href="">books</a></li>
+            <ul class="sidebar">
+                <li>
+
+                    <a href="">UserName</a>
+                </li>
+                <li>
+                    <img class="img-sidebar" src="../assets/add-book-sidebar.svg" alt="" srcset=""><a
+                        href="../pages/addbook.php">add
+                        books</a>
+                </li>
+                <li>
+                    <img class="img-sidebar" src="../assets/add-post.svg" alt="" srcset=""><a
+                        href="../pages/addposts.php">add
+                        posts</a>
+                </li>
+                <li>
+                    <img class="img-sidebar" src="../assets/books.svg" alt="" srcset=""><a href="">books</a>
+                </li>
+                <div class="hr"></div>
             </ul>
+
         </div>
+
+
         <div class="home-feed">
 
             <?php
@@ -164,31 +130,44 @@ include "../includes/navbar.php";
                 echo "
                 <div class='posts'>
                 <div class='profile-info'>
-                    <div class='picture-profile'></div>
+                
+                   
+                    <img class=img-profile src=../assets/profile-pic.png >
+                    <div class=con-profile-data>
+                    <div class=con-name-username>
                     <h3 class='name'>" . $dummyData[$i]['name']  . "</h3>
                     <h4 class='username'>" . $dummyData[$i]['username']  . "</h4>
-                    
-                    <h4 class='book-name'>" . $dummyData[$i]['book-title'] . "</h4>
+                    </div>
+                    <h4 class='username'>" . $dummyData[$i]['book-title'] . "</h4>
+                    </div>
+                  
                 </div>
                 <div class='post-info'>
                     <h2 class='title'>" . $dummyData[$i]['post-title'] . "</h2>
                     <p class='post-desc'>" . $dummyData[$i]['post-desc'] . "</p>
                 </div>
+                
+
                 <div class='reactions-info'>
-                    <div class='like-num'>" . $dummyData[$i]['number-like'] . "</div>
-                    <div class='comment-num'>" . $dummyData[$i]['number-comment'] . "</div>
+                    <div class='like-num'>
+                    <img class=like-reaction src=../assets/like-btn.svg >
+                    " . $dummyData[$i]['number-like'] . "</div>
+                    <div class='comment-num'>" . $dummyData[$i]['number-comment'] . " Comments</div>
                 </div>
-                <hr color='black'>
+                <div class=hr>. </div>
                   <div class='buttons'>
-                    <div class='like'>like </div>
-                    <div class='comment'>comment</div>
+                    <div class='like'>
+                    <img class=like-user src=../assets/like-user.svg >
+                    like </div>
+                    <div class='comment'>
+                    <img class=like-user src=../assets/comment.svg >comment</div>
                   </div>
                 </div>
             ";
             }
             ?>
         </div>
-    </div>
+    </section>
 </body>
 
 </html>
