@@ -1,25 +1,41 @@
 <?php
 //TODO: getting username/email and passwords to auth
 //TODO: getting data if the user that have account
+ini_set("session.cookie_lifetime", 86400);
 session_start();
+
+
+
+if(isset($_SESSION['userdata'])){
+   
+header('location: pages/home.php');
+}
+
 $signInDataAsWriter = array('name' => "mustafa majid", 'username' => "mustafa", 'email' => "mstafa@gmail.com", 'password' => "mustafa123", 'type' => "writer");
 $signInDataAsReader = array('name' => "blnd zyad", 'username' => "blnd", 'email' => "blnd@gmail.com", 'password' => "blnd123", 'type' => "reader");
 $error = "";
+
 if (isset($_POST['username']) && isset($_POST['password'])) {
 
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $_SESSION['username'] = $username;
-    $_SESSION['password'] = $password;
-    if (
-        $username == $signInDataAsWriter['username'] && $password == $signInDataAsWriter['password']
-    ) {
-        header('location:pages/home.php');
-        $_SESSION["userdata"] = $signInDataAsWriter;
+    
+    if ($username == $signInDataAsWriter['username'] && $password == $signInDataAsWriter['password']) {
+            if(isset($_POST["remember_me"])){
+                setcookie("userdata",json_encode($signInDataAsWriter), time()+60); // Set a cookie named "name" with the value "John" that expires in 1 hour
+
+               }
+               $_SESSION["userdata"] = $signInDataAsWriter;
+                header('location:pages/home.php');
+
     } else if ($username == $signInDataAsReader['username'] && $password == $signInDataAsReader['password']) {
 
-        header('location:pages/home.php');
-        $_SESSION["userdata"] = $signInDataAsReader;
+        if(isset($_POST["remember_me"])){
+            setcookie("userdata",json_encode($signInDataAsReader), time()+60); // Set a
+           }
+
+           $_SESSION["userdata"] = $signInDataAsReader;
+           header('location:pages/home.php');
     } else {
         $error = "Incorrect username or password.";
     }

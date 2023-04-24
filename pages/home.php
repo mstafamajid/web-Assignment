@@ -1,5 +1,44 @@
 <?php
+ini_set("session.cookie_lifetime", 86400);
 session_start();
+if (!isset($_SESSION["userdata"])) {
+    header("location:../index.php");
+}
+if (isset($_POST["submit"])) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   $_COOKIE['userdata']=null;
+   echo $_COOKIE['userdata'];
+
+    session_destroy();
+    header("location:../index.php");
+    
+
+}
 $logoPath = "../assets\logo.svg";
 $dummyData = array(
     array(
@@ -153,6 +192,10 @@ include "../includes/navbar.php";
                 <li><a href="../pages/addbook.php">add books</a></li>
                 <li><a href="../pages/addposts.php">add posts</a></li>
                 <li><a href="">books</a></li>
+                <form action="home.php" method="post" >
+                    <input type="submit" value="logout" name="submit">
+                </form>
+
             </ul>
         </div>
         <div class="home-feed">
