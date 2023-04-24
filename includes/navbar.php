@@ -6,40 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        nav{
-            background-color: red;
-            display: flex;
-            flex-direction: row;
-        }
-nav div ul{
-    margin-left: 300px;
-    gap: 70px;
-    display: flex;
-    flex-direction: row;
-}
-nav div ul li a{
-    text-decoration: none;
-}
-li{
-    list-style: none;
-}
-#srch-ic{
-
-margin-left: 400px;
-    padding: 10px;
-display: flex;
-flex-direction: row;
-gap: 30px;
-}
-#srch-ic div{
-   
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    background-color: grey;
-}
-    </style>
+<link rel="stylesheet" href="../styles/navbar.css">
 </head>
 
 <body>
@@ -57,7 +24,15 @@ gap: 30px;
                 </ul>
             </div>
             <div id='srch-ic'>
-                <input type="search" name="search" id="search-field">
+                <!-- search svg code -->
+                <div class="srch" >
+                
+                <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 svg">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+</svg>
+
+                </div>
+                <input type="search"  name="search" id="search-field">
                 <div>
 
                 </div>

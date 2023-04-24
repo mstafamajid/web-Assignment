@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins";
+}
+
+.main {
+    
+    background: #EBEBEB;
+      display: flex;
+      align-items: center; 
+      justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 100vh;
+  padding: 0 10rem 0 10rem;
+
+}
+.booksContainar{
+    color: #FFFFFF;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: #414cab;
+    width: 724px;
+    height: 512px;
+    background: #2E3467;    border-radius: 45px;
+    padding: 1rem .5rem 1rem .5rem;
+    text-align: center;
+
+}
+
+.books {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  justify-content: center;
+  align-items: center;
+
+
+}
+.bookinfo {
+  display: flex;
+  gap: 3rem;
+  text-align: center;
+}
+.num {
+  margin-bottom: 0.5rem;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  color: #414cab;
+}
+.img {
+  width: 209.01px;
+  height: 303.15px;
+  object-fit: cover;
+  border-radius: 45px;
+
+}
+
+.sideProfile{
+width: 289px;
+height: 514px;
+background: #ffffff;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+border-radius: 45px;
+
+
+}
+.userinfo{
+ 
+    margin-bottom: .6rem;
+}
+.username{
+    transform: translateY(-.3rem);
+}
