@@ -76,6 +76,7 @@ $dummyData = array(
 if (isset($_SESSION["userdata"])) {
     $userdata = $_SESSION['userdata'];
     //echo "welcome".$_SESSION['userdata']['name'];
+    // access
 }
 include "../includes/navbar.php";
 ?>
