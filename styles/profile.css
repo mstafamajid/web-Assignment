@@ -6,6 +6,7 @@
 }
 
 .main {
+  
     
     background: #EBEBEB;
       display: flex;
@@ -19,7 +20,7 @@
 }
 .booksContainar{
     color: #FFFFFF;
-
+overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -32,6 +33,12 @@
     padding: 1rem .5rem 1rem .5rem;
     text-align: center;
 
+    
+    
+
+}
+.booksContainar::-webkit-scrollbar {
+  display: none !important;
 }
 
 .books {
