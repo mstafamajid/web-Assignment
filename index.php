@@ -62,37 +62,46 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         }
 
         .container {
-            margin: 0 15%;
+            height: 100vh;
+           display: flex;
+           flex-direction: row;
+           align-items: center;
+           justify-content: center;
+           justify-items: center;
+           align-content: center;
+           gap: 50px;
         }
 
 
         .leftSide {
-
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
             color: white;
-            float: left;
+           
             background: linear-gradient(157.31deg, #414CAB 5.83%, #2E3467 95.62%);
             border-radius: 25px;
             text-align: center;
             width: 500px;
             height: 550px;
-            margin-left: 60px;
-            margin-top: 30px;
-            padding-top: 60px;
-            display: table-cell;
-            vertical-align: middle;
+           
+           
+           
+          
         }
 
         .leftSide p {
-            padding: 20px;
-            margin-bottom: 40px;
+        padding: 20px;
         }
 
         .leftSide h2 {
-            margin-top: 0px;
+         
         }
 
         .leftSide img {
-            margin-top: 25px;
+          padding: 40px;
+          height: 100px;
         }
 
         .leftSide .signupBtn {
@@ -105,6 +114,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             font-weight: bolder;
             padding: 15px 40px 15px 40px;
             transition: 0.2s;
+            z-index: 1000;
         }
 
         .leftSide .signupBtn:hover {
@@ -115,8 +125,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
 
         .rightSide {
-            padding: 150px 0px 0 0px;
-            transform: translateX(50px);
+          
+          
         }
 
         .rightSide h2 {
@@ -131,12 +141,12 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             color: #51557E;
             background-color: white;
             border: none;
-            padding-left: 15px;
+          
         }
 
         .rightSide input[type="checkbox"] {
             width: 20px;
-            margin-top: 10px;
+          
             color: #414CAB;
         }
 
@@ -156,7 +166,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             color: white;
             background-color: #414CAB;
             font-size: 18px;
-            width: 317px;
+            width: 300px;
         }
 
 
@@ -228,7 +238,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
         <div class="leftSide">
             <h2>Welcome back to</h2>
-            <img src="logo.png" alt="">
+            <img src="assets/logoW.svg" alt="">
             <p>Welcome to our website, your one stop
                 destination for books and information about
                 books. With our user-friendly interface, you can
@@ -236,7 +246,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 book lovers today and immerse yourself in the
                 wonderful world of literature!</p>
             <div>
-                <a href="signup.php" class="signupBtn">Sign Up</a>
+                <a href="login-signup/signup.php" class="signupBtn">Sign Up</a>
             </div>
         </div>
 
