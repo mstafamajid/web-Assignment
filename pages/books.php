@@ -18,6 +18,10 @@ $Allbooks = array(
     array('paths' =>'../assets/book.svg' ,'title'=>'book title11' ), 
     array('paths' =>'../assets/book.svg' ,'title'=>'book title12' ), 
     array('paths' =>'../assets/book.svg' ,'title'=>'book title13' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title12' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title13' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title12' ), 
+    array('paths' =>'../assets/book.svg' ,'title'=>'book title13' ), 
 );
 
 ?>
@@ -29,24 +33,9 @@ $Allbooks = array(
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../styles/books.css">
     <style>
-        body{
-            background-color: grey;
-        }
-        .main{
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 100px;
-         
-            justify-content: center;
-        }
-        .eachbook{
-            width: 244px;
-height: 428.56px;
-background: #FFFFFF;
-border-radius: 15.8789px;
-        }
+       
     </style>
 </head>
 <body>

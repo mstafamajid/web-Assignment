@@ -1,13 +1,10 @@
 <?php
 //TODO: getting username/email and passwords to auth
 
+
 session_start();
-
-
-
-if(isset($_SESSION['userdata'])){
-   
-header('location: pages/home.php');
+if (isset($_SESSION['userdata'])) {
+    header('location: pages/home.php');
 }
 
 $signInDataAsWriter = array('name' => "mustafa majid", 'username' => "mustafa", 'email' => "mstafa@gmail.com", 'password' => "mustafa123", 'type' => "writer");
@@ -18,23 +15,15 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
     $username = $_POST['username'];
     $password = $_POST['password'];
-    
+
     if ($username == $signInDataAsWriter['username'] && $password == $signInDataAsWriter['password']) {
-            if(isset($_POST["remember_me"])){
-                setcookie("userdata",json_encode($signInDataAsWriter), time()+60); // Set a cookie named "name" with the value "John" that expires in 1 hour
 
-               }
-               $_SESSION["userdata"] = $signInDataAsWriter;
-                header('location:pages/home.php');
-
+        $_SESSION["userdata"] = $signInDataAsWriter;
+        header('location:pages/home.php');
     } else if ($username == $signInDataAsReader['username'] && $password == $signInDataAsReader['password']) {
 
-        if(isset($_POST["remember_me"])){
-            setcookie("userdata",json_encode($signInDataAsReader), time()+60); // Set a
-           }
-
-           $_SESSION["userdata"] = $signInDataAsReader;
-           header('location:pages/home.php');
+        $_SESSION["userdata"] = $signInDataAsReader;
+        header('location:pages/home.php');
     } else {
         $error = "Incorrect username or password.";
     }
@@ -62,45 +51,43 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
         .container {
             height: 100vh;
-           display: flex;
-           flex-direction: row;
-           align-items: center;
-           justify-content: center;
-           justify-items: center;
-           align-content: center;
-           gap: 50px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+            align-content: center;
+            gap: 50px;
         }
 
 
         .leftSide {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             color: white;
-           
+
             background: linear-gradient(157.31deg, #414CAB 5.83%, #2E3467 95.62%);
             border-radius: 25px;
             text-align: center;
             width: 500px;
             height: 550px;
-           
-           
-           
-          
+
+
+
+
         }
 
         .leftSide p {
-        padding: 20px;
+            padding: 20px;
         }
 
-        .leftSide h2 {
-         
-        }
+        .leftSide h2 {}
 
         .leftSide img {
-          padding: 40px;
-          height: 100px;
+            padding: 40px;
+            height: 100px;
         }
 
         .leftSide .signupBtn {
@@ -123,10 +110,7 @@ justify-content: center;
 
 
 
-        .rightSide {
-          
-          
-        }
+        .rightSide {}
 
         .rightSide h2 {
             color: #414CAB;
@@ -140,12 +124,12 @@ justify-content: center;
             color: #51557E;
             background-color: white;
             border: none;
-          
+
         }
 
         .rightSide input[type="checkbox"] {
             width: 20px;
-          
+
             color: #414CAB;
         }
 

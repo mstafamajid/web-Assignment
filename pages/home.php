@@ -1,46 +1,29 @@
 <?php
-ini_set("session.cookie_lifetime", 86400);
+
 session_start();
 if (!isset($_SESSION["userdata"])) {
     header("location:../index.php");
 }
-if (isset($_POST["submit"])) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   $_COOKIE['userdata']=null;
-   echo $_COOKIE['userdata'];
+if (isset($_POST["logout"])) {
 
     session_destroy();
     header("location:../index.php");
     
-
+    
 }
 $logoPath = "../assets\logo.svg";
+include "../includes/navbar.php";
 $dummyData = array(
+    array(
+        'username' => "mustafa",
+        'name' => "mustafa majid",
+        'book-title' => 'coding if funny',
+        'post-title' => 'flutter piace of cake',
+        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
+        'number-like' => 350,
+        'number-comment' => 20
+
+    ),
     array(
         'username' => "mustafa",
         'name' => "mustafa majid",
@@ -117,7 +100,6 @@ if (isset($_SESSION["userdata"])) {
     //echo "welcome".$_SESSION['userdata']['name'];
     // access
 }
-include "../includes/navbar.php";
 ?>
 
 <!DOCTYPE html>
@@ -140,7 +122,7 @@ include "../includes/navbar.php";
             <ul class="sidebar">
                 <li>
 
-                    <a href="">UserName</a>
+                    <a href=""><?php echo $userdata['name']?></a>
                 </li>
                 <li>
                     <img class="img-sidebar" src="../assets/add-book-sidebar.svg" alt="" srcset=""><a
@@ -157,7 +139,7 @@ include "../includes/navbar.php";
                 </li>
                 <div class="hr"></div>
                 <form action="home.php" method="post" >
-                    <input type="submit" value="logout" name="submit">
+                    <input type="submit" value="logout" name="logout">
                 </form>
 
             </ul>

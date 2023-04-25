@@ -11,9 +11,7 @@
 
 <body>
     <nav>
-        
             <div>
-
                 <?php echo " <img src='$logoPath' alt='logo'>" ?>
             </div>
             <div>
@@ -35,10 +33,61 @@
                 <input type="search"  name="search" id="search-field">
                 <div>
 
+
+                <!-- image profile --> 
+                <div>
+
                 </div>
+
             </div>
         
     </nav>
+
+
+<!--   navbar for small screen   -->
+
+
+<div class="topBar" >
+
+<div class="logoM">
+    <a href="home.php"><img src="../assets/logoW.svg" alt="logo"></a>
+</div>
+
+
+<div class="pfpM">
+<img src="../assets/profile-pic.png" alt="php picture">
+</div>
+
+</div>
+
+
+    <div class="mobNav">
+
+
+
+    <ul>
+        <li>
+            <a href="../pages/home.php"><img src="../assets/homeM.svg" alt=""></a>
+            Home
+       </li>
+        
+        <li>
+            <a href="../pages/books.php"><img src="../assets/bookM.svg" alt=""></a>
+            Books
+        </li>
+        
+        <li>
+            <a href="../pages/profile.php"><img src="../assets/pfpM.svg" alt=""></a>
+            Profile
+        </li>
+     </ul> 
+    
+
+
+
+    </div>
+
+
 </body>
 
 </html>

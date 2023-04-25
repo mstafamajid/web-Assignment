@@ -6,39 +6,35 @@
 }
 
 .main {
-  
-    
-    background: #EBEBEB;
-      display: flex;
-      align-items: center; 
-      justify-content: center;
+  background: #EBEBEB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: row;
   justify-content: space-around;
   height: 100vh;
   padding: 0 10rem 0 10rem;
 
 }
-.booksContainar{
-    color: #FFFFFF;
-overflow-y: scroll;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    background-color: #414cab;
-    width: 724px;
-    height: 512px;
-    background: #2E3467;    border-radius: 45px;
-    padding: 1rem .5rem 1rem .5rem;
-    text-align: center;
-
-    
-    
-
-}
-.booksContainar::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none !important;
+}
+.booksContainar {
+  color: #FFFFFF;
+  overflow-y: scroll !important;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: #414cab;
+  width: 724px;
+  height: 512px;
+  background: #2E3467;
+  border-radius: 45px;
+  padding: 1rem .5rem 1rem .5rem;
+  text-align: center;
+
 }
 
 .books {
@@ -52,11 +48,13 @@ overflow-y: scroll;
 
 
 }
+
 .bookinfo {
   display: flex;
   gap: 3rem;
   text-align: center;
 }
+
 .num {
   margin-bottom: 0.5rem;
   font-style: normal;
@@ -64,6 +62,7 @@ overflow-y: scroll;
   font-size: 18px;
   color: #414cab;
 }
+
 .img {
   width: 209.01px;
   height: 303.15px;
@@ -72,23 +71,25 @@ overflow-y: scroll;
 
 }
 
-.sideProfile{
-width: 289px;
-height: 514px;
-background: #ffffff;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-border-radius: 45px;
+.sideProfile {
+  width: 289px;
+  height: 514px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 45px;
 
 
 }
-.userinfo{
- 
-    margin-bottom: .6rem;
+
+.userinfo {
+
+  margin-bottom: .6rem;
 }
-.username{
-    transform: translateY(-.3rem);
+
+.username {
+  transform: translateY(-.3rem);
 }

@@ -25,21 +25,83 @@ if(isset($_POST["submit"])){
     <title>Document</title>
     <style>
         body {
-            background-color: #ebebeb;
-
+            background-color: #EBEBEB;
+            font-family: 'Poppins', sans-serif;
         }
 
         .main {
-
-            margin: 0 auto;
+            padding: 30px;
+            padding-bottom: 20px;
+            margin: 20px auto 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-
+            border-radius: 20px;
             background-color: white;
-            width: 400px;
-            height: 500px;
+            width: 450px;
         }
+
+.main h2{
+    color: #414CAB;
+}
+
+
+.main input[type="text"]{
+border-radius: 5px;
+width: 300px;
+height: 50px;
+background-color: #E7E9F6;
+border: none;
+font-size: 15px;
+color: #51557E;
+padding-left: 10px;
+}
+
+.main textarea{
+font-family: 'Poppins', sans-serif;
+border-radius: 5px;
+max-width: 290px;
+height: 170px;
+background-color: #E7E9F6;
+border: none;
+font-size: 15px;
+color: #51557E;
+padding: 15px;
+}
+
+.subBtn{
+transition: 0.2s;
+font-weight: bolder;
+color: white;
+background-color: #414CAB;
+font-size: 18px;
+width: 317px;
+padding: 10px;
+border-radius: 7px;
+}
+
+
+.subBtn:hover{
+box-shadow: 0 0 8px 0 #414CAB;
+cursor: pointer;
+}
+
+
+select{
+padding: 15px 20px;
+background-color: #E7E9F6;
+border: none;
+border-radius: 7px;
+color: #51557E;
+font-family: 'Poppins', sans-serif;
+margin-left: -160px;
+}
+
+select option{
+    background-color: #414CAB;
+    color: white;
+    padding: 50px;
+}
 
         form {
             padding: 0px 30px;
@@ -64,7 +126,6 @@ if(isset($_POST["submit"])){
 
         .icon {
             display: flex;
-
             justify-content: center;
             align-items: center;
             padding: 0 10px;
@@ -73,15 +134,22 @@ if(isset($_POST["submit"])){
             border-radius: 10px;
 
         }
+
+
+        
+
+
+
+
     </style>
 </head>
 
 <body>
     <div class="main">
-        <h2>Add Book</h2>
+        <h2>Add Post</h2>
         <form action='' method="post">
-            <input type="text" name="post-title" id="post-title">
-            <textarea name="post-desc" id="post-desc" cols="40" rows="10"></textarea>
+            <input type="text" name="post-title" id="post-title" placeholder="Write Post Title">
+            <textarea placeholder="Write Post Description" name="post-desc" id="post-desc" cols="40" rows="10"></textarea>
             <div class="select book">
                
             <select name="selectbook" id="">
@@ -99,7 +167,7 @@ for ($i=0; $i < count($books_of_current_user); $i++) {
               
 
             </div>
-            <input type="submit" value="add" name="submit">
+            <input type="submit" value="add" name="submit" class="subBtn">
         </form>
     </div>
 </body>
