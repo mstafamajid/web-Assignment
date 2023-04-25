@@ -71,8 +71,9 @@ a {
   justify-content: flex-start;
   align-items: flex-start;
   padding: 30px 50px;
-  width: 640px;
-  height: 310px;
+  max-width: 640px;
+  min-width: 280px;
+  min-height: 310px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.04);
 }
 
@@ -188,16 +189,14 @@ a {
   gap: 4px;
 }
 
-
-
 /*responsive */
 @media screen and (max-width: 500px) {
+  .side ul {
+    display: none;
+    position: unset;
+  }
 
-  .side ul{
-  display: none;
-  position:unset;
-}
-
-
-
+  .container {
+    padding: 100px 50px;
+  }
 }

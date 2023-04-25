@@ -6,21 +6,22 @@
 }
 
 .main {
-  background: #EBEBEB;
+  background: #ebebeb;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   justify-content: space-around;
-  height: 100vh;
-  padding: 0 10rem 0 10rem;
+  min-height: 100vh;
 
+  padding: 0 10rem 0 10rem;
+  flex-wrap: wrap;
 }
 ::-webkit-scrollbar {
   display: none !important;
 }
 .booksContainar {
-  color: #FFFFFF;
+  color: #ffffff;
   overflow-y: scroll !important;
   display: flex;
   flex-wrap: wrap;
@@ -28,13 +29,16 @@
   align-items: center;
   gap: 1rem;
   background-color: #414cab;
-  width: 724px;
-  height: 512px;
-  background: #2E3467;
-  border-radius: 45px;
-  padding: 1rem .5rem 1rem .5rem;
-  text-align: center;
+  max-width: 724px;
+  min-width: 304px;
 
+  max-height: 512px;
+  min-height: 200px;
+
+  background: #2e3467;
+  border-radius: 45px;
+  padding: 1rem 0.5rem 1rem 0.5rem;
+  text-align: center;
 }
 
 .books {
@@ -45,8 +49,6 @@
 
   justify-content: center;
   align-items: center;
-
-
 }
 
 .bookinfo {
@@ -68,12 +70,11 @@
   height: 303.15px;
   object-fit: cover;
   border-radius: 45px;
-
 }
 
 .sideProfile {
   width: 289px;
-  height: 514px;
+  min-height: 514px;
   background: #ffffff;
   display: flex;
   flex-direction: column;
@@ -81,15 +82,50 @@
   justify-content: center;
   text-align: center;
   border-radius: 45px;
-
-
 }
 
 .userinfo {
-
-  margin-bottom: .6rem;
+  margin-bottom: 0.6rem;
 }
 
 .username {
-  transform: translateY(-.3rem);
+  transform: translateY(-0.3rem);
+}
+
+.btn-add {
+  display: none;
+  display: none;
+  width: 300px;
+  background-color: #e1ebff;
+  padding: 10px 40px;
+  color: #2e3467;
+  font-size: 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: #2e3467;
+}
+
+@media screen and (max-width: 500px) {
+  .main {
+    padding: 120px 30px;
+    gap: 35px;
+  }
+
+  .booksContainar {
+    padding: 10px 10px;
+  }
+
+  .sideProfile {
+    min-width: 444px;
+    padding: 10px 10px;
+  }
+
+  .btn-add {
+    display: inline-block;
+  }
 }
