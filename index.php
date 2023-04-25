@@ -83,7 +83,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             padding: 20px;
         }
 
-        .leftSide h2 {}
+
 
         .leftSide img {
             padding: 40px;
@@ -110,7 +110,6 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
 
 
-        .rightSide {}
 
         .rightSide h2 {
             color: #414CAB;
