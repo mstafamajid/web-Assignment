@@ -17,8 +17,36 @@ margin-top: 100px;
     align-items: center;
 }
 .eachbook{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     width: 244px;
 height: 428.56px;
 background: #FFFFFF;
 border-radius: 15.8789px;
+z-index: -2;
+}
+.coverbook{
+    z-index: -1;
+    border-radius: 10px;
+  
+    position: relative;
+    width: 206.78px;
+    height: 278.16px;
+}
+.coverbook img{
+position:absolute; 
+ width: 100%;
+height: 100%;
+}
+.seepost form input{
+    width: 207.26px;
+height: 35.1px;
+font-family: 'poppins';
+background: #E1EBFF;
+border-radius: 4.30401px;
+border: none;
+color: #414CAB;
+font-weight: bold;
 }

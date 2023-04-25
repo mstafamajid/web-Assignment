@@ -49,8 +49,8 @@ $Allbooks = array(
        </div>
        <div class='title'>
            <h2>".$Allbooks[$i]['title']."</h2>
-       </div>
-       <div class='seepost'>
+           </div>
+           <div class='seepost'>
        <form action='posts_of_book.php' method='post'>
        <input type='hidden' name='book_info' value='".json_encode($Allbooks[$i])."'>
        <input type='submit' value='See posts'>
