@@ -1,7 +1,6 @@
 <?php
 //TODO: getting username/email and passwords to auth
-//TODO: getting data if the user that have account
-ini_set("session.cookie_lifetime", 86400);
+
 session_start();
 
 
