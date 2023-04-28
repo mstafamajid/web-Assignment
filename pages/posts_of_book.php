@@ -93,7 +93,7 @@ $dummyData = array(
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+<!--     
     <style>
         .main {
             display: flex;
@@ -146,50 +146,87 @@ border-radius: 19px;
             background-color: red;
             border-radius: 0px 0px 20px 20px;
         }
-    </style>
+    </style> -->
+    <link rel="stylesheet" href="../styles/home.css">
 </head>
 <body>
-    <div class="main">
-        <div class="side">
-<img src=<?php echo $book_info['paths'] ?> width="247" height="333">
-<h2><?php echo $book_info['title']?></h2>
-<h3>description</h3>
-<p>book description</p>
+<section class="container">
 
+<div class="side">
+    <ul class="sidebar">
+        <li>
+
+            <a href=""></a>
+        </li>
+        <li>
+            <img class="img-sidebar" src="../assets/add-book-sidebar.svg" alt="" srcset=""><a
+                href="../pages/addbook.php">add
+                books</a>
+        </li>
+        <li>
+            <img class="img-sidebar" src="../assets/add-post.svg" alt="" srcset=""><a
+                href="../pages/addposts.php">add
+                posts</a>
+        </li>
+        <li>
+            <img class="img-sidebar" src="../assets/books.svg" alt="" srcset=""><a href="">books</a>
+        </li>
+        <div class="hr"></div>
+        <form action="home.php" method="post" >
+            <input type="submit" value="logout" name="logout">
+        </form>
+
+    </ul>
+
+</div>
+
+
+<div class="home-feed">
+
+    <?php
+    $counter = 0;
+    for ($i = 0; $i < count($dummyData); $i++) {
+
+        echo "
+        <div class='posts'>
+        <div class='profile-info'>
+        
+           
+            <img class=img-profile src=../assets/profile-pic.png >
+            <div class=con-profile-data>
+            <div class=con-name-username>
+            <h3 class='name'>" . $dummyData[$i]['name']  . "</h3>
+            <h4 class='username'>" . $dummyData[$i]['username']  . "</h4>
+            </div>
+            <h4 class='username'>" . $dummyData[$i]['book-title'] . "</h4>
+            </div>
+          
         </div>
-        <div class="home-feed">
-
-            <?php
-            $counter = 0;
-            for ($i = 0; $i < count($dummyData); $i++) {
-
-                echo "
-                <div class='posts'>
-                <div class='profile-info'>
-                    <div class='picture-profile'></div>
-                    <h3 class='name'>" . $dummyData[$i]['name']  . "</h3>
-                    <h4 class='username'>" . $dummyData[$i]['username']  . "</h4>
-                    
-                    <h4 class='book-name'>" . $dummyData[$i]['book-title'] . "</h4>
-                </div>
-                <div class='post-info'>
-                    <h2 class='title'>" . $dummyData[$i]['post-title'] . "</h2>
-                    <p class='post-desc'>" . $dummyData[$i]['post-desc'] . "</p>
-                </div>
-                <div class='reactions-info'>
-                    <div class='like-num'>" . $dummyData[$i]['number-like'] . "</div>
-                    <div class='comment-num'>" . $dummyData[$i]['number-comment'] . "</div>
-                </div>
-                <hr color='black'>
-                  <div class='buttons'>
-                    <div class='like'>like </div>
-                    <div class='comment'>comment</div>
-                  </div>
-                </div>
-            ";
-            }
-            ?>
+        <div class='post-info'>
+            <h2 class='title'>" . $dummyData[$i]['post-title'] . "</h2>
+            <p class='post-desc'>" . $dummyData[$i]['post-desc'] . "</p>
         </div>
-    </div>
+        
+
+        <div class='reactions-info'>
+            <div class='like-num'>
+            <img class=like-reaction src=../assets/like-btn.svg >
+            " . $dummyData[$i]['number-like'] . "</div>
+            <div class='comment-num'>" . $dummyData[$i]['number-comment'] . " Comments</div>
+        </div>
+        <div class=hr>. </div>
+          <div class='buttons'>
+            <div class='like'>
+            <img class=like-user src=../assets/like-user.svg >
+            like </div>
+            <div class='comment'>
+            <img class=like-user src=../assets/comment.svg >comment</div>
+          </div>
+        </div>
+    ";
+    }
+    ?>
+</div>
+</section>
 </body>
 </html>

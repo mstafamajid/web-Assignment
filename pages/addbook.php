@@ -29,56 +29,9 @@ if (isset($_FILES['image'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../styles/addbooks.css">
     <style>
-        body {
-            background-color: #ebebeb;
-
-        }
-
-        .main {
-
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            background-color: white;
-            width: 400px;
-            height: 500px;
-        }
-
-        form {
-            padding: 0px 30px;
-            gap: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .upload-cover {
-            height: 60px;
-            width: 100%;
-
-            border: 2px dashed black;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-evenly;
-        }
-
-        .icon {
-            display: flex;
-
-            justify-content: center;
-            align-items: center;
-            padding: 0 10px;
-            height: 50px;
-            background-color: white;
-            border-radius: 10px;
-
-        }
+       
     </style>
 </head>
 
@@ -93,10 +46,11 @@ if (isset($_FILES['image'])) {
                     <img src="../assets/addbook.svg" alt="">
                 </div>
                 <h4>upload book photo</h4>
-                <input type="file" name="image" id="upload">
-
+               
+                
+                    <input type="file" name="image" id="upload" >
             </div>
-            <input type="submit" value="add">
+            <input type="submit" value="add" class="subBtn">
         </form>
     </div>
 </body>

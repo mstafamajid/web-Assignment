@@ -44,9 +44,9 @@ $Allbooks = array(
     for ($i=0; $i < count($Allbooks); $i++) { 
        echo "
        <div class='eachbook'>
-       <div class='coverbook'>
-           <img src=".$Allbooks[$i]['paths'].">
-       </div>
+       
+       <img class='coverbook' src=".$Allbooks[$i]['paths'].">
+      
        <div class='title'>
            <h2>".$Allbooks[$i]['title']."</h2>
            </div>
