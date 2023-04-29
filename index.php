@@ -1,35 +1,51 @@
 <?php
-//TODO: getting username/email and passwords to auth
-
-
+// Check if user is already logged in
+include "includes/connection_to_sql.php";
 session_start();
 if (isset($_SESSION['userdata'])) {
     header('location: pages/home.php');
 }
 
-$signInDataAsWriter = array('name' => "mustafa majid", 'username' => "mustafa", 'email' => "mstafa@gmail.com", 'password' => "mustafa123", 'type' => "writer");
-$signInDataAsReader = array('name' => "blnd zyad", 'username' => "blnd", 'email' => "blnd@gmail.com", 'password' => "blnd123", 'type' => "reader");
-$error = "";
+// TODO: Validate user input and check if user exists in the database
+$errors = [];
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
-
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if ($username == $signInDataAsWriter['username'] && $password == $signInDataAsWriter['password']) {
+    // Check if username and password are not empty
+    if (empty($username)) {
+        $errors['username'] = "Username/email is required.";
+    }
+    if (empty($password)) {
+        $errors['password'] = "Password is required.";
+    }
+$username_escaped=$conn->real_escape_string($username);
 
-        $_SESSION["userdata"] = $signInDataAsWriter;
-        header('location:pages/home.php');
-    } else if ($username == $signInDataAsReader['username'] && $password == $signInDataAsReader['password']) {
-
-        $_SESSION["userdata"] = $signInDataAsReader;
-        header('location:pages/home.php');
-    } else {
-        $error = "Incorrect username or password.";
+    // Check if there are no errors
+    if (empty($errors)) {
+        // Check if the user exists in the database
+        $stmt = $conn->prepare("SELECT * FROM `users` WHERE `username` = ? or `email` = ?" );
+        $stmt->bind_param("ss", $username_escaped,$username_escaped);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        if ($result) {
+            // Verify password
+            if ((($password) ==$result['password'])) {
+                // Store user data in session
+                $_SESSION['userdata'] = $result;
+                header('location:pages/home.php');
+            } else {
+                $errors['password'] = "Incorrect password.";
+            }
+        } else {
+            $errors['username'] = "Account not found.";
+        }
     }
 }
 
 ?>
+
 
 
 
@@ -42,172 +58,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <style>
-        body {
-            background-color: #EBEBEB;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .container {
-            height: 100vh;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            justify-items: center;
-            align-content: center;
-            gap: 50px;
-        }
-
-
-        .leftSide {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-
-            background: linear-gradient(157.31deg, #414CAB 5.83%, #2E3467 95.62%);
-            border-radius: 25px;
-            text-align: center;
-            width: 500px;
-            height: 550px;
-
-
-
-
-        }
-
-        .leftSide p {
-            padding: 20px;
-        }
-
-
-
-        .leftSide img {
-            padding: 40px;
-            height: 100px;
-        }
-
-        .leftSide .signupBtn {
-            text-decoration: none;
-            background: none;
-            border: none;
-            border-radius: 10px;
-            outline: 2px white solid;
-            color: white;
-            font-weight: bolder;
-            padding: 15px 40px 15px 40px;
-            transition: 0.2s;
-            z-index: 1000;
-        }
-
-        .leftSide .signupBtn:hover {
-            color: #2E3467;
-            background-color: white;
-        }
-
-
-
-
-        .rightSide h2 {
-            color: #414CAB;
-        }
-
-        .rightSide input {
-            color: #51557E;
-            border-radius: 5px;
-            width: 300px;
-            height: 50px;
-            color: #51557E;
-            background-color: white;
-            border: none;
-
-        }
-
-        .rightSide input[type="checkbox"] {
-            width: 20px;
-
-            color: #414CAB;
-        }
-
-        .remember {
-            vertical-align: 20px;
-            margin-left: 7px;
-            color: #414CAB;
-            font-weight: bold;
-
-        }
-
-
-
-        .rightSide input[type="submit"] {
-            transition: 0.2s;
-            font-weight: bolder;
-            color: white;
-            background-color: #414CAB;
-            font-size: 18px;
-            width: 300px;
-        }
-
-
-        .rightSide input[type="submit"]:hover {
-            box-shadow: 0 0 8px 0 #414CAB;
-            cursor: pointer;
-        }
-
-        .btnM {
-            display: none;
-        }
-
-        /*responsive */
-        @media screen and (max-width: 500px) {
-
-            body {
-                text-align: center;
-            }
-
-
-            .container {
-                margin: 0;
-                margin-right: 100px;
-            }
-
-            .leftSide {
-                display: none;
-            }
-
-            .check {
-                transform: translateX(-86px)
-            }
-
-            .btnM {
-                padding: 11px;
-                border-radius: 5px;
-                display: block;
-                transition: 0.2s;
-                font-weight: bolder;
-                color: #414CAB;
-                border: 2px #414CAB solid;
-                font-size: 16px;
-                min-width: 293px;
-                text-decoration: none;
-                ;
-                transform: translateY(-10px);
-            }
-
-            .btnM:hover {
-                background-color: #414CAB;
-                color: white;
-                box-shadow: 0 0 8px 0 #414CAB;
-
-            }
-
-
-
-        }
-    </style>
+<link rel="stylesheet" href="styles/index.css">
 
 
 </head>
@@ -236,8 +87,18 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         <div class="rightSide">
             <h2>Login Page</h2>
             <form action="index.php" method="POST">
-                <input type="text" name="username" placeholder="Email or Username"><br><br>
+                <input type="text" name="username" placeholder="Email or Username"><br>
+                <?php
+                             if (!empty($errors['username'])) echo "<span class='error-input-signin'>".$errors['username']."</span>";
+                        
+                            ?>
+                <br>
                 <input type="password" name="password" placeholder="Password"><br>
+                <?php
+                             if (!empty($errors['password'])) echo "<span class='error-input-signin'>".$errors['password']."</span>";
+                        
+                            ?>
+                <br>
                 <div class="check"> <input type="checkbox" name="remember_me" value="checked"><span class="remember">Remember Me</span> <br><br>
                 </div>
                 <input type="submit" value="Login"><br><br>
