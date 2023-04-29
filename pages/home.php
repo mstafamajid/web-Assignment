@@ -124,7 +124,10 @@ if (isset($_SESSION["userdata"])) {
 
                     <a href=""><?php echo $userdata['name']?></a>
                 </li>
-                <li>
+                <?php 
+                if($userdata['type']=='writer'){
+                    echo '
+                    <li>
                     <img class="img-sidebar" src="../assets/add-book-sidebar.svg" alt="" srcset=""><a
                         href="../pages/addbook.php">add
                         books</a>
@@ -134,6 +137,11 @@ if (isset($_SESSION["userdata"])) {
                         href="../pages/addposts.php">add
                         posts</a>
                 </li>
+                    
+                    ';
+                }
+                ?>
+               
                 <li>
                     <img class="img-sidebar" src="../assets/books.svg" alt="" srcset=""><a href="">books</a>
                 </li>

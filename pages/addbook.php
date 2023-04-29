@@ -1,8 +1,10 @@
 <?php
-$logoPath = "../assets\logo.svg";
+$logoPath = "../assets/logo.svg";
 include '../includes/navbar.php';
+include '../includes/connection_to_sql.php';
 
-
+session_start();
+$userdata=$_SESSION['userdata'];
 if (isset($_FILES['image'])) {
 
     if ($_FILES['image']['error'] == 0) {
@@ -10,14 +12,28 @@ if (isset($_FILES['image'])) {
         $file_path = $_FILES['image']['tmp_name'];
         $file_name = $_FILES['image']['name'];
 
-
-
         move_uploaded_file($file_path, "../uploads/" . $file_name);
         $image_path = "uploads/" . $file_name;
-        exit();
+     
     }
 }
 
+if (isset($_POST['addbook'])) {
+
+    $bookName = $_POST['book-name'];
+    $bookDesc = $_POST['book-desc'];
+
+    if (empty($bookName) || empty($bookDesc)) {
+        echo "Please enter all required fields.";
+    } else {
+        $userid=intval($userdata['user_id']);
+        $stmt = $conn->prepare("INSERT INTO books (`user_id`,`book_title`, `book_description`, `image_path`) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("isss",$userid, $bookName, $bookDesc, $image_path);
+        $stmt->execute();
+        $stmt->close();
+        header("location: home.php");
+    }
+}
 
 ?>
 
@@ -28,10 +44,10 @@ if (isset($_FILES['image'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add Book</title>
     <link rel="stylesheet" href="../styles/addbooks.css">
     <style>
-       
+
     </style>
 </head>
 
@@ -46,11 +62,9 @@ if (isset($_FILES['image'])) {
                     <img src="../assets/addbook.svg" alt="">
                 </div>
                 <h4>upload book photo</h4>
-               
-                
-                    <input type="file" name="image" id="upload" >
+                <input type="file" name="image" id="upload">
             </div>
-            <input type="submit" value="add" class="subBtn">
+            <input type="submit" value="add" class="subBtn" name="addbook">
         </form>
     </div>
 </body>
