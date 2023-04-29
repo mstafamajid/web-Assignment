@@ -103,12 +103,7 @@ form {
     justify-content: start;
 }
 
-input[type="file"] {
-    /* Hide the default label */
-  
-    /* Set the width and height to 0 to remove the space occupied by the label */
-   
-}
+
 .icon {
     display: flex;
     justify-content: center;
