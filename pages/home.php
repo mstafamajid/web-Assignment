@@ -11,90 +11,38 @@ if (isset($_POST["logout"])) {
     
     
 }
+
 $logoPath = "../assets\logo.svg";
 include "../includes/navbar.php";
-$dummyData = array(
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
+include '../includes/connection_to_sql.php';
 
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
+$sql = "SELECT p.book_id, u.name, u.username, p.post_title, p.post_detail 
+        FROM posts p 
+        JOIN users u";
 
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
+    $result = $conn->query($sql);
 
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
+// Create 2D array to hold data
+$data = array();
 
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
+// If there are results, loop through them and add to the data array
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+    $data[] = array(
+        'username' => $row["username"],
+        'name' => $row['name'],
+      'book-title' => $row['book_id'],
+      'post-title' => $row['post_title'],
+      'post-desc' => $row['post_detail'],
+      'number-like' => 40,
+      'number-comment' => 20
+    );
+  }
+}
+;
 
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
 
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
 
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
-
-    ),
-);
 if (isset($_SESSION["userdata"])) {
     $userdata = $_SESSION['userdata'];
     //echo "welcome".$_SESSION['userdata']['name'];
@@ -122,7 +70,7 @@ if (isset($_SESSION["userdata"])) {
             <ul class="sidebar">
                 <li>
 
-                    <a href=""><?php echo $userdata['name']?></a>
+                    <a href="profile.php"><?php echo $userdata['name']?></a>
                 </li>
                 <?php 
                 if($userdata['type']=='writer'){
@@ -143,7 +91,7 @@ if (isset($_SESSION["userdata"])) {
                 ?>
                
                 <li>
-                    <img class="img-sidebar" src="../assets/books.svg" alt="" srcset=""><a href="">books</a>
+                    <img class="img-sidebar" src="../assets/books.svg" alt="" srcset="" ><a href="books.php">books</a>
                 </li>
                 <div class="hr"></div>
                 <form action="home.php" method="post" >
@@ -159,7 +107,7 @@ if (isset($_SESSION["userdata"])) {
 
             <?php
             $counter = 0;
-            for ($i = 0; $i < count($dummyData); $i++) {
+            for ($i = 0; $i < count($data); $i++) {
 
                 echo "
                 <div class='posts'>
@@ -169,28 +117,28 @@ if (isset($_SESSION["userdata"])) {
                     <img class=img-profile src=../assets/profile-pic.png >
                     <div class=con-profile-data>
                     <div class=con-name-username>
-                    <h3 class='name'>" . $dummyData[$i]['name']  . "</h3>
-                    <h4 class='username'>" . $dummyData[$i]['username']  . "</h4>
+                    <h3 class='name'>" . $data[$i]['name']  . "</h3>
+                    <h4 class='username'>" . $data[$i]['username']  . "</h4>
                     </div>
-                    <h4 class='username'>" . $dummyData[$i]['book-title'] . "</h4>
+                    <h4 class='username'>" . $data[$i]['book-title'] . "</h4>
                     </div>
                   
                 </div>
                 <div class='post-info'>
-                    <h2 class='title'>" . $dummyData[$i]['post-title'] . "</h2>
-                    <p class='post-desc'>" . $dummyData[$i]['post-desc'] . "</p>
+                    <h2 class='title'>" . $data[$i]['post-title'] . "</h2>
+                    <p class='post-desc'>" . $data[$i]['post-desc'] . "</p>
                 </div>
                 
 
                 <div class='reactions-info'>
                     <div class='like-num'>
                     <img class=like-reaction src=../assets/like-btn.svg >
-                    " . $dummyData[$i]['number-like'] . "</div>
-                    <div class='comment-num'>" . $dummyData[$i]['number-comment'] . " Comments</div>
+                    " . $data[$i]['number-like'] . "</div>
+                    <div class='comment-num'>" . $data[$i]['number-comment'] . " Comments</div>
                 </div>
                 <div class=hr>. </div>
                   <div class='buttons'>
-                    <div class='like'>
+                    <div class='like' >
                     <img class=like-user src=../assets/like-user.svg >
                     like </div>
                     <div class='comment'>
