@@ -3,14 +3,15 @@ $logoPath = "../assets\logo.svg";
 include '../includes/navbar.php';
 include '../includes/connection_to_sql.php';
 
-// Assuming $conn is the database connection object
 
-// Fetch all book names from books table
-$sql = "SELECT book_id, book_title FROM books";
+
+
 session_start();
-$result = $conn->query($sql);
 
 $userdata=$_SESSION['userdata'];
+$userid=$userdata['user_id'];
+$sql = "SELECT book_id, book_title FROM books where books.user_id=$userid";
+$result = $conn->query($sql);
 // Check if any results were returned
 if ($result->num_rows > 0) {
     // Initialize an empty array to hold the book names
@@ -34,7 +35,11 @@ if(isset($_POST["submit"])){
         $userid=intval($userdata['user_id']);
         $stmt = $conn->prepare("INSERT INTO posts (user_id, book_id, post_title, post_detail) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("iiss", $userid, $selectedbook, $postTitle, $postDetail);
-        if($stmt->execute()) {
+        $stmt_update=$conn->prepare("UPDATE books SET num_of_posts = num_of_posts + 1 WHERE book_id = ?");
+        $stmt_update->bind_param("i",$selectedbook);
+        $stmt_update->execute();
+        if($stmt->execute()&$stmt_update->execute()) {
+
             header("location: home.php");
         } else {
             echo "Error: " . $stmt->error;

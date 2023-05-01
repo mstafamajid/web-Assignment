@@ -8,14 +8,12 @@ include '../includes/connection_to_sql.php';
 $sql = "SELECT * from books";
 $result = $conn->query($sql);
 
-$Allbooks=array();
+$Allbooks=[];
 
 if($result->num_rows > 0){
 
     while($row = $result->fetch_assoc()){
-$Allbooks []= array(
-    'paths' =>"../assets/book.svg" ,
-    'title'=>$row["book_title"] );
+array_push($Allbooks, $row) ;
 
 }
 
@@ -31,6 +29,7 @@ $Allbooks []= array(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../styles/books.css">
+    <script src="../js/books.js" defer></script>
     <style>
        
     </style>
@@ -42,10 +41,10 @@ $Allbooks []= array(
        echo "
        <div class='eachbook'>
        
-       <img class='coverbook' src=".$Allbooks[$i]['paths'].">
+       <img class='coverbook' src="."../".$Allbooks[$i]['image_path'].">
       
        <div class='title'>
-           <h2>".$Allbooks[$i]['title']."</h2>
+           <h2>".$Allbooks[$i]['book_title']."</h2>
            </div>
            <div class='seepost'>
        <form action='posts_of_book.php' method='post'>

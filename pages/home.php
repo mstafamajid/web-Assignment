@@ -1,6 +1,32 @@
 <?php
+$logoPath = "../assets\logo.svg";
+include "../includes/navbar.php";
+include '../includes/connection_to_sql.php';
 
 session_start();
+if (isset($_POST["like"]) && isset($_POST["post_id"])) {
+    $post_id=$_POST["post_id"];
+$user_id=$_SESSION['userdata']['user_id'];
+    $query1 = "SELECT COUNT(*) as count FROM likes WHERE user_id = $user_id AND post_id = $post_id";
+$result = $conn->query($query1);
+$row = $result->fetch_assoc();
+
+if ($row['count'] > 0) {
+    $post_id = $_POST["post_id"];
+    $sql = "UPDATE posts SET num_of_like = num_of_like - 1 WHERE post_id = $post_id";
+    $conn->query($sql);
+    $query2 = "DELETE FROM likes WHERE user_id = $user_id AND post_id = $post_id";
+  $result = $conn->query($query2);
+} else {
+   
+    $post_id = $_POST["post_id"];
+    $sql = "UPDATE posts SET num_of_like = num_of_like + 1 WHERE post_id = $post_id";
+    $conn->query($sql);
+    $query3 = "INSERT INTO `likes` (user_id, post_id) VALUES ($user_id, $post_id)";
+    $conn->query($query3);
+ 
+}
+}
 if (!isset($_SESSION["userdata"])) {
     header("location:../index.php");
 }
@@ -8,38 +34,31 @@ if (isset($_POST["logout"])) {
 
     session_destroy();
     header("location:../index.php");
-    
-    
 }
 
-$logoPath = "../assets\logo.svg";
-include "../includes/navbar.php";
-include '../includes/connection_to_sql.php';
 
-$sql = "SELECT p.book_id, u.name, u.username, p.post_title, p.post_detail 
-        FROM posts p 
-        JOIN users u";
+$sql = "SELECT p.post_id,p.book_id, u.name, u.username, p.post_title, p.post_detail, b.book_title,p.num_of_like FROM posts p , users u, books b where p.book_id=b.book_id and u.user_id=b.user_id;";
 
-    $result = $conn->query($sql);
+$result = $conn->query($sql);
 
 // Create 2D array to hold data
 $data = array();
 
-// If there are results, loop through them and add to the data array
+
 if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $data[] = array(
-        'username' => $row["username"],
-        'name' => $row['name'],
-      'book-title' => $row['book_id'],
-      'post-title' => $row['post_title'],
-      'post-desc' => $row['post_detail'],
-      'number-like' => 40,
-      'number-comment' => 20
-    );
-  }
-}
-;
+    while ($row = $result->fetch_assoc()) {
+        $data[] = array(
+            'username' => $row["username"],
+            'name' => $row['name'],
+            'book-title' => $row['book_title'],
+            'post-title' => $row['post_title'],
+            'post-desc' => $row['post_detail'],
+            'number-like' => $row['num_of_like'],
+            'post_id'=>$row['post_id'],
+            'number-comment' => 20
+        );
+    }
+};
 
 
 
@@ -57,7 +76,7 @@ if (isset($_SESSION["userdata"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/home.css">
+    <link rel="stylesheet" href="../styles/home.css?<?= time() ?>">
     <title>Document</title>
 
 
@@ -70,10 +89,10 @@ if (isset($_SESSION["userdata"])) {
             <ul class="sidebar">
                 <li>
 
-                    <a href="profile.php"><?php echo $userdata['name']?></a>
+                    <a href="profile.php"><?php echo $userdata['name'] ?></a>
                 </li>
-                <?php 
-                if($userdata['type']=='writer'){
+                <?php
+                if ($userdata['type'] == 'writer') {
                     echo '
                     <li>
                     <img class="img-sidebar" src="../assets/add-book-sidebar.svg" alt="" srcset=""><a
@@ -89,12 +108,12 @@ if (isset($_SESSION["userdata"])) {
                     ';
                 }
                 ?>
-               
+
                 <li>
-                    <img class="img-sidebar" src="../assets/books.svg" alt="" srcset="" ><a href="books.php">books</a>
+                    <img class="img-sidebar" src="../assets/books.svg" alt="" srcset=""><a href="books.php">books</a>
                 </li>
                 <div class="hr"></div>
-                <form action="home.php" method="post" >
+                <form action="home.php" method="post">
                     <input type="submit" value="logout" name="logout">
                 </form>
 
@@ -136,11 +155,15 @@ if (isset($_SESSION["userdata"])) {
                     " . $data[$i]['number-like'] . "</div>
                     <div class='comment-num'>" . $data[$i]['number-comment'] . " Comments</div>
                 </div>
-                <div class=hr>. </div>
+                <div class=hr> </div>
                   <div class='buttons'>
-                    <div class='like' >
-                    <img class=like-user src=../assets/like-user.svg >
-                    like </div>
+                  <form method='post'>
+                  <input type='hidden' name='post_id' value='" . $data[$i]['post_id'] . "'>
+                  <button type='submit' name='like' class='like'>
+                      <img class='like-user' src='../assets/like-user.svg'>
+                      like
+                  </button>
+              </form>
                     <div class='comment'>
                     <img class=like-user src=../assets/comment.svg >comment</div>
                   </div>

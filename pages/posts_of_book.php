@@ -1,88 +1,42 @@
 <?php 
 $logoPath = "../assets\logo.svg";
 include '../includes/navbar.php';
-
+include '../includes/connection_to_sql.php';
 if(isset($_POST['book_info'])) {
    
    
     $book_info = json_decode($_POST['book_info'],true);
-    // Do something with $book_info, such as displaying it on the page
-   
+     $book_info['book_id'];
+    
 }
 
+$sql = $conn->prepare("SELECT users.username,users.name, books.book_title,posts.post_title, posts.post_detail, posts.num_of_like \n"
+. "FROM posts \n"
 
-$dummyData = array(
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
+. "JOIN books ON posts.book_id = books.book_id \n"
 
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
+. "JOIN users ON users.user_id = posts.user_id \n"
 
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
-
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
-
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
-
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
-
-    ),
-    array(
-        'username' => "mustafa",
-        'name' => "mustafa majid",
-        'book-title' => 'coding if funny',
-        'post-title' => 'flutter piace of cake',
-        'post-desc' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum maxime magnam iste officiis voluptatem, in corporis. Error, quas. Cupiditate doloremque soluta ipsa accusantium vero quis repudiandae architecto quo voluptatem ipsam?",
-        'number-like' => 350,
-        'number-comment' => 20
-
-    ),
+. "WHERE books.book_id =?;");
+$sql->bind_param("i",$book_info['book_id']);
+$result=$sql->execute();
+$post_of_eachbook_data = array(
 );
+if($result){
+    $sql->bind_result($username, $name,$book_title,$post_title,$post_detail,$num_of_like);
+    while($sql->fetch()){
+array_push($post_of_eachbook_data,array(
+    'username' => $username,
+    'name' => $name,
+    'book-title' => $book_title,
+    'post-title' => $post_title,
+    'post-desc' => $post_detail,
+    'number-like' => $num_of_like,
+    'number-comment' => 20
+));
+    }
+}
+
 ?>
 
 
@@ -93,6 +47,7 @@ $dummyData = array(
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../styles/home.css?<?=time()?>">
 <!--     
     <style>
         .main {
@@ -147,7 +102,7 @@ border-radius: 19px;
             border-radius: 0px 0px 20px 20px;
         }
     </style> -->
-    <link rel="stylesheet" href="../styles/home.css">
+   
 </head>
 <body>
 <section class="container">
@@ -185,7 +140,7 @@ border-radius: 19px;
 
     <?php
     $counter = 0;
-    for ($i = 0; $i < count($dummyData); $i++) {
+    for ($i = 0; $i < count($post_of_eachbook_data); $i++) {
 
         echo "
         <div class='posts'>
@@ -195,24 +150,24 @@ border-radius: 19px;
             <img class=img-profile src=../assets/profile-pic.png >
             <div class=con-profile-data>
             <div class=con-name-username>
-            <h3 class='name'>" . $dummyData[$i]['name']  . "</h3>
-            <h4 class='username'>" . $dummyData[$i]['username']  . "</h4>
+            <h3 class='name'>" . $post_of_eachbook_data[$i]['name']  . "</h3>
+            <h4 class='username'>" . $post_of_eachbook_data[$i]['username']  . "</h4>
             </div>
-            <h4 class='username'>" . $dummyData[$i]['book-title'] . "</h4>
+            <h4 class='username'>" . $post_of_eachbook_data[$i]['book-title'] . "</h4>
             </div>
           
         </div>
         <div class='post-info'>
-            <h2 class='title'>" . $dummyData[$i]['post-title'] . "</h2>
-            <p class='post-desc'>" . $dummyData[$i]['post-desc'] . "</p>
+            <h2 class='title'>" . $post_of_eachbook_data[$i]['post-title'] . "</h2>
+            <p class='post-desc'>" . $post_of_eachbook_data[$i]['post-desc'] . "</p>
         </div>
         
 
         <div class='reactions-info'>
             <div class='like-num'>
             <img class=like-reaction src=../assets/like-btn.svg >
-            " . $dummyData[$i]['number-like'] . "</div>
-            <div class='comment-num'>" . $dummyData[$i]['number-comment'] . " Comments</div>
+            " . $post_of_eachbook_data[$i]['number-like'] . "</div>
+            <div class='comment-num'>" . $post_of_eachbook_data[$i]['number-comment'] . " Comments</div>
         </div>
         <div class=hr>. </div>
           <div class='buttons'>
