@@ -3,26 +3,23 @@
 session_start();
 $logoPath = "../assets\logo.svg";
 include '../includes/navbar.php';
-$Allbooks = array(
-    
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title1' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title2' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title3' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title4' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title5' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title6' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title7' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title8' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title9' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title10' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title11' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title12' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title13' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title12' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title13' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title12' ), 
-    array('paths' =>'../assets/book.svg' ,'title'=>'book title13' ), 
-);
+include '../includes/connection_to_sql.php';
+
+$sql = "SELECT * from books";
+$result = $conn->query($sql);
+
+$Allbooks=array();
+
+if($result->num_rows > 0){
+
+    while($row = $result->fetch_assoc()){
+$Allbooks []= array(
+    'paths' =>"../assets/book.svg" ,
+    'title'=>$row["book_title"] );
+
+}
+
+}
 
 ?>
 
