@@ -24,7 +24,8 @@
   color: #ffffff;
   overflow-y: scroll !important;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
@@ -34,7 +35,8 @@
 
   max-height: 512px;
   min-height: 200px;
-
+height: 512px;
+width: 724px;
   background: #2e3467;
   border-radius: 45px;
   padding: 1rem 0.5rem 1rem 0.5rem;

@@ -1,28 +1,36 @@
 <?php 
 session_start();
-$logoPath = "../assets\logo.svg";
+$logoPath = "../assets/logo.svg";
 include "../includes/navbar.php";
-// $userdata=$_SESSION["userdata"];
-$userdata['num-of-post']=150;
-$userdata['num-of-book']=30;
-$bookdata = array(
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
-    array('title' =>"name",'num-of-posts'=>20),
- );
+include "../includes/connection_to_sql.php";
+$userdata = $_SESSION["userdata"];
+$userid = $conn->real_escape_string($userdata['user_id']);
+$sqlstt = $conn->prepare("SELECT books.book_title as title, COUNT(post_id) AS `num-of-posts` FROM posts, books WHERE posts.book_id=books.book_id AND books.user_id=? GROUP BY posts.book_id");
+$sqlstt->bind_param("i", $userid);
+$userdata['num-of-post'] = 150;
+$userdata['num-of-book'] = 30;
+$bookdata = [];
+$result = $sqlstt->execute();
 
+if ($result) {
+
+
+    $sqlstt->bind_result($title, $num_of_posts);
+    while ($sqlstt->fetch()) {
+       
+      
+       
+        array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
+        array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
+        array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
+        array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
+        array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
+        array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
+
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,12 +40,13 @@ $bookdata = array(
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../styles/profile.css">
     <!-- google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Poppins:wght@400;600&display=swap"
-        rel="stylesheet">
+    rel="stylesheet">
+    <link rel="stylesheet" href="../styles/profile.css">
+    <script src="../js/profile.js" defer></script>
 </head>
 
 <body>
@@ -78,7 +87,7 @@ $bookdata = array(
 
 
         <div class="booksContainar">
-            <h2>books</h2>
+            <h1>books</h1>
 
             <div class="books">
                 <?php 
