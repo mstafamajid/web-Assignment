@@ -22,7 +22,7 @@
 }
 .booksContainar {
   color: #ffffff;
-  overflow-y: scroll !important;
+ 
   display: flex;
   /* flex-wrap: wrap; */
   flex-direction: column;
@@ -44,10 +44,12 @@ width: 724px;
 }
 
 .books {
+  padding: 20px;
   /* border: 1px solid red; */
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+   overflow-y: scroll !important;
+  gap: 5rem;
 
   justify-content: center;
   align-items: center;

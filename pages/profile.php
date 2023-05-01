@@ -6,6 +6,8 @@ include "../includes/connection_to_sql.php";
 $userdata = $_SESSION["userdata"];
 $userid = $conn->real_escape_string($userdata['user_id']);
 $sqlstt = $conn->prepare("SELECT books.book_title as title, COUNT(post_id) AS `num-of-posts` FROM posts, books WHERE posts.book_id=books.book_id AND books.user_id=? GROUP BY posts.book_id");
+$sqlstt_sum=$conn->prepare("SELECT COUNT(post_id) FROM `posts` WHERE user_id=$userid;");
+
 $sqlstt->bind_param("i", $userid);
 $userdata['num-of-post'] = 150;
 $userdata['num-of-book'] = 30;
@@ -20,12 +22,10 @@ if ($result) {
        
       
        
+       
         array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
-        array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
-        array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
-        array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
-        array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
-        array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts]);
+        
+       
 
     }
 }
@@ -64,7 +64,7 @@ if ($result) {
                 <h2>name</h2>
 
                 <!-- to retrive the username you just need put this code inside php tag -->
-                <!-- php echo "@".$userdata[''] -->
+                <!-- php echo "@".$usedata[''] -->
                 <h4 class="username">@userName</h4>
             </div>
             <div class="bookinfo">
@@ -87,7 +87,7 @@ if ($result) {
 
 
         <div class="booksContainar">
-            <h1>bookks</h1>
+            <h1>books</h1>
 
             <div class="books">
                 <?php 
