@@ -87,7 +87,7 @@ if ($result) {
 
 
         <div class="booksContainar">
-            <h1>books</h1>
+            <h1>bookks</h1>
 
             <div class="books">
                 <?php 
