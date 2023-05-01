@@ -12,7 +12,7 @@
 <body>
     <nav>
         <div>
-            <?php echo " <img src='$logoPath' alt='logo'>" ?>
+        <a href="../pages/home.php"><?php echo " <img src='$logoPath' alt='logo'>" ?> </a>
         </div>
         <div>
             <ul>
