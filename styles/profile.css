@@ -120,7 +120,14 @@ border: 3px solid white;
   width: 109.09px;
   height: 146.75px;
 }
+.aboutM{
+  display: none;
+}
 @media screen and (max-width: 500px) {
+  .aboutM{
+    text-align: center;
+    display: inline;
+}
   .main {
     padding: 120px 30px;
     gap: 35px;
