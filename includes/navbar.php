@@ -1,151 +1,108 @@
-nav {
-  background-color: #ffff;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-direction: row;
-  box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.09);
-  padding: 0.5rem 0 0.5rem 0;
-}
-nav div ul {
-  gap: 70px;
-  display: flex;
-  flex-direction: row;
-}
-nav div ul li a {
-  text-decoration: none;
-  font-weight: 600;
-  color: #2e3467;
-}
-li {
-  list-style: none;
-}
-#srch-ic {
-  position: relative;
-  margin-left: 400px;
-  /* padding: 10px; */
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-}
-.srch {
-  color: white;
-  position: absolute;
-  left: 10px;
-  top: 5px;
-  background: transparent !important;
-}
-.svg {
-  width: 27.58px;
-  height: 27.6px;
-}
-#search-field {
-  border-radius: 45px;
-  border: none;
-  background: #2e3467;
-  width: 260px;
-  height: 38px;
+<!DOCTYPE html>
+<html lang="en">
 
-  /* dark primary */
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/navbar.css">
+</head>
 
-  background: #2e3467;
-  border-radius: 24px;
-}
-#srch-ic div {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  background-color: grey;
-}
+<body>
+    <nav>
+        <div>
+        <a href="../pages/home.php"> <?php echo " <img src='$logoPath' alt='logo'>" ?> </a>
+        </div>
+        <div>
+            <ul>
+                <li><a href="home.php">Home</a></li>
+                <li><a href="books.php">Books</a></li>
+                <li><a href="profile.php">Profile</a></li>
+                <li><a href="aboutUs.php">About Us</a></li>
 
-.mobNav {
-  display: none;
-}
+            </ul>
+        </div>
+        <div id='srch-ic'>
+            <!-- search svg code -->
+            <div class="srch">
 
-.topBar {
-  display: none;
-}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6 svg">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
 
-/*responsive */
-@media screen and (max-width: 500px) {
-  .topBar {
-    position: fixed;
-    width: 100%;
-    display: inline-flex;
-    padding: 20px 0px 10px 0;
-    background-color: #2e3467;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.575);
-    top: 0;
-  }
+            </div>
+            <input type="search" name="search" id="search-field">
+            <div>
 
-  .logoM {
-    margin-left: 20px;
-  }
+        
+                <!-- image profile -->
+                <div>
+                <a href="../pages/profile.php"> <img src="" alt=""></a>
+                </div>
 
-  .pfpM img {
-    object-fit: cover;
-    height: 50px;
-    width: 50px;
-    border-radius: 100%;
-    margin-left: 220px;
-  }
+            </div>
 
-  nav {
-    display: none;
-  }
+    </nav>
 
-  .mobNav {
-    box-shadow: 0px 0 10px 0 rgba(74, 74, 74, 0.623);
 
-    border-top: 3px solid white;
-    color: white;
-    display: block;
-    z-index: 1;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #2e3467;
-  }
+    <!--   navbar for small screen   -->
 
-  .mobNav span {
-    color: white;
-  }
 
-  .mobNav img {
-    width: 26px;
-  }
+    <div class="topBar">
 
-  .mobNav ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+        <div class="logoM">
+            <a href="home.php"><img src="../assets/logoW.svg" alt="logo"></a>
+        </div>
 
-    list-style: none;
-  }
 
-  .a-nav__con {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
+        <div class="pfpM">
+            <img src="../assets/profile-pic.png" alt="php picture">
+        </div>
 
-  span {
-    margin-top: 4px;
-  }
+    </div>
 
-  .mobNav ul li {
-    transition: 0.2s;
-    padding: 10px 25px 10px 25px;
-  }
 
-  .mobNav ul li:hover {
-    cursor: pointer;
-    background-color: #4a508e;
-  }
-}
+    <div class="mobNav">
+
+
+
+        <ul>
+            <li>
+                <a class="a-nav__con" href="../pages/home.php">
+
+                    <img src="../assets/homeM.svg" alt="">
+                    <span>Home</span></a>
+
+            </li>
+
+            <li>
+                <a class="a-nav__con" href="../pages/books.php">
+
+                    <img src="../assets/bookM.svg" alt="">
+                    <span>Books</span></a>
+
+            </li>
+
+            <li>
+                <a class="a-nav__con" href="../pages/profile.php">
+
+                    <img src="../assets/pfpM.svg" alt="">
+                    <span>
+                        Profile
+                    </span></a>
+
+            </li>
+        </ul>
+
+
+
+
+    </div>
+
+
+</body>
+
+</html>
