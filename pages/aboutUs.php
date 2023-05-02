@@ -12,7 +12,7 @@ include '../includes/navbar.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="aboutUs.css">
+    <link rel="stylesheet" href="../styles/aboutUs.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,15 +46,15 @@ include '../includes/navbar.php';
 <img src="../assets/logoW.svg" alt="">
 
 <div class="links">
-<a href="">Email</a>
-<a href="">Facebook</a>
-<a href="">Linked In</a>
+<a href="mailto:blnd.00482229@gmail.com">Email</a>
+<a href="https://www.facebook.com/blnd.zyad.5">Facebook</a>
+<a href="https://www.linkedin.com/in/mustafa-majid-dev/">Linked In</a>
 </div>
 
 <hr>
 
 <div class="bot">
-<p class="tell">0782 388 9415  -  0751 774 1789</p>
+<p class="tell">0751 774 1789  -  0782 388 9415</p>
 <p class="coppyR">© 2023 KoyaUniveristy. All rights reserved.</p>
 </div>
 
