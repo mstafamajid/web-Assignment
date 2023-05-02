@@ -108,12 +108,14 @@ for ($i=0; $i < count($bookdata); $i++) {
             </div>
 
         </div>
-    </div>
-    <div class="aboutM">
-<p class="coppyR">© 2023 KoyaUniveristy. All rights reserved.</p>
-<a href="aboutUs.php">About Us</a>
 
+        <div class="aboutM">
+        <a href="aboutUs.php">About Us</a>
+<p class="coppyR">© 2023 KoyaUniveristy. All rights reserved.</p>
 </div>
+
+    </div>
+    
 </body>
 
 </html>
