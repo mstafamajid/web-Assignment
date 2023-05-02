@@ -54,7 +54,7 @@ include '../includes/navbar.php';
 <hr>
 
 <div class="bot">
-<p class="tell">0750 xxx xxxx  -  0750 xxx xxxx</p>
+<p class="tell">0782 388 9415  -  0751 774 1789</p>
 <p class="coppyR">© 2023 KoyaUniveristy. All rights reserved.</p>
 </div>
 
