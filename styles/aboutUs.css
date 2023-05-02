@@ -13,6 +13,7 @@
         margin-top: 100px;
         font-family: 'Poppins', sans-serif;
     }
+    
 h1{
     color: #414CAB;
     padding-bottom:30px ;
@@ -25,10 +26,9 @@ h1{
     }
 
 .card{
-    
     border-radius: 20px;
     padding: 30px;
-    width:fit-content;
+    width:260px;
     background-color: white;
     color: #414CAB;
 }
@@ -37,6 +37,7 @@ h1{
 margin-top: 10px;
 }
    .card img{
+    border-radius: 10px;
         width: 200px;
     }
 
@@ -56,11 +57,15 @@ margin-top: 10px;
     }
 
     .links a{
-
+transition: 0.1s;
         text-decoration: none;
         color: white;
         padding: 40px 20px;
     }
+
+    .links a:hover{
+color: yellow;    
+}
 
    hr{
 margin: 0 auto;    
@@ -80,14 +85,53 @@ width: 500px;
 /*responsive */
 @media screen and (max-width: 500px) {
 
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    text-align: unset;
+
+}
+
+h1{
+    text-align: center;
+}
+
     .container{
+        margin-left: 130px;
+        display: flex;
         flex-direction: column;
-        justify-items: center;
-        align-content: center;
-        justify-content: center;
-text-align: center;
+       text-align: center;
+
     }
 
-   
+    .card{
+text-align: center;
+width: fit-content;
+    }
+
+.card h2{
+    font-size: 20px !important;
+}
+
+.card p{
+    font-size: 15px;
+}
+
+.card img{
+        width: 170px;
+    }
+
+footer{
+    text-align: center;
+    padding-bottom: 70px;
+}
+
+   hr{
+    width: 400px;
+   }
 
 }
