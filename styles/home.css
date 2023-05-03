@@ -17,6 +17,19 @@ body {
   min-height: 100vh;
   background-color: #ebebeb;
 }
+.like{
+  
+    background-color: transparent;
+    color: white; /* Set text color */
+    padding: 12px 20px; /* Add padding */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Add rounded corners */
+    cursor: pointer; /* Add mouse pointer on hover */
+  
+  
+ 
+
+}
 
 .img-sidebar {
   width: 40px;

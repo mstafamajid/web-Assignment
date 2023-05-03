@@ -32,12 +32,15 @@ if ($row['count'] > 0) {
     $sql2="SELECT * from `likes` where post_id=$post_id AND user_id=$user_id and 'like'=is_liked ";
    $res2= $conn->query($sql2);
    $row=$res2->fetch_assoc();
-    if($row['is_liked']==null){
+   if($res2->num_rows>0){
+       if($row['is_liked']=='like'){
+           $sql = "UPDATE likes SET  is_liked='unlike' where post_id = $post_id and post_id=$post_id";
+           $conn->query($sql);
+       }
+    }
+    else{
         $query3 = "INSERT INTO `likes` (user_id, post_id,is_liked) VALUES ($user_id, $post_id,'unlike')";
         $conn->query($query3);
-    }else{
-        $sql = "UPDATE likes SET  is_liked='unlike' where post_id = $post_id and post_id=$post_id";
-        $conn->query($sql);
 
     }
  
@@ -72,7 +75,7 @@ if ($result->num_rows > 0) {
         if(($row["is_liked"]==null)){
 
             array_push($data,array(
-                'isliked'=>'like',
+                'isliked'=>'../assets/like-user.svg',
                 'username' => $row["username"],
                 'name' => $row['name'],
                 'book-title' => $row['book_title'],
@@ -85,7 +88,7 @@ if ($result->num_rows > 0) {
         } else{
             if($row['user_id']==$_SESSION['userdata']['user_id']&$row['is_liked']=='unlike'){
                 array_push($data,array(
-                    'isliked'=>'unlike',
+                    'isliked'=>'../assets/liked.svg',
                     'username' => $row["username"],
                     'name' => $row['name'],
                     'book-title' => $row['book_title'],
@@ -97,7 +100,7 @@ if ($result->num_rows > 0) {
                 ));
             } else{
                 array_push($data,array(
-                    'isliked'=>'like',
+                    'isliked'=>'../assets/like-user.svg',
                     'username' => $row["username"],
                     'name' => $row['name'],
                     'book-title' => $row['book_title'],
@@ -206,8 +209,7 @@ if ($result->num_rows > 0) {
                   <input type='hidden' name='post_id' value='" . $data[$i]['post_id'] . "'>
                   <button type='submit' name='like' class='like'>
 
-                      <img class='like-user' src='../assets/like-user.svg'>".
-                      $data[$i]['isliked']."
+                      <img class='like-user' src='".$data[$i]['isliked']."'>
                   </button>
               </form>
                     <div class='comment'>
