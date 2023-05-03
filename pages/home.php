@@ -3,7 +3,7 @@ $logoPath = "../assets\logo.svg";
 include "../includes/navbar.php";
 include '../includes/connection_to_sql.php';
 
-session_start();
+
 
 if (isset($_SESSION["userdata"])) {
     $userdata = $_SESSION['userdata'];
@@ -61,7 +61,9 @@ $sql = "SELECT l.user_id, p.post_id, p.post_title, p.post_detail, p.num_of_like,
         FROM posts p 
         JOIN users u ON u.user_id = p.user_id 
         JOIN books b ON b.book_id = p.book_id 
-        LEFT JOIN likes l ON l.post_id = p.post_id AND l.user_id =$ui ";
+        LEFT JOIN likes l ON l.post_id = p.post_id AND l.user_id =$ui
+        ORDER BY p.post_id DESC
+        ";
 
 $result = $conn->query($sql);
 

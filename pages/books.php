@@ -1,6 +1,6 @@
 <?php 
 //TODO: retrive id with book and paths
-session_start();
+
 $logoPath = "../assets\logo.svg";
 include '../includes/navbar.php';
 include '../includes/connection_to_sql.php';

@@ -1,8 +1,9 @@
 <?php 
-session_start();
+
 $logoPath = "../assets/logo.svg";
 include "../includes/navbar.php";
 include "../includes/connection_to_sql.php";
+
 $userdata = $_SESSION["userdata"];
 
 $userid = $conn->real_escape_string($userdata['user_id']);
@@ -45,6 +46,10 @@ if (isset($_FILES['fileToUpload'])) {
         $image_path = "uploads/" . $file_name;
       $userdata["profile_image"]="../".$image_path;
       $_SESSION['userdata']=$userdata;
+      $imgpt=$userdata["profile_image"];
+     
+      $sql = "UPDATE users SET profile_image = '$imgpt' WHERE user_id=$userid;";
+      $conn->query($sql);
 
     }
 
@@ -125,7 +130,7 @@ for ($i=0; $i < count($bookdata); $i++) {
  
   <div class='info-about-eachbook'>
   <h4>".$bookdata[$i]['title']."</h4>
-  <p>".$bookdata[$i]['num-of-posts']."</p>
+  <p>".$bookdata[$i]['num-of-posts']." posts</p>
   </div>
 </div>";
 }
