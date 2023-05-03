@@ -1,0 +1,66 @@
+.sidebar {
+    position: fixed;
+    top: 75px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .sidebar{
+      margin-bottom: 30px !important;
+  }
+  
+  .eachbook {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 244px;
+      height: 600px;
+      background: #FFFFFF;
+      border-radius: 15.8789px;
+      
+  }
+  .bookTitle{
+      text-align: center;
+  }
+
+  .description{
+    padding: 0px 10px;
+    
+  }
+  
+  
+  .coverbook {
+      margin-top: 20px;
+      border-radius: 10px;
+      width: 206.78px;
+      height: 278.16px;
+  }
+  
+  div h3{
+      margin-left: 10px;
+  }
+  
+  .desc{
+      transform: translateY(-25px);
+      overflow-y: scroll;
+  }
+  
+  .desc
+  
+  .description{
+      margin-left: 10px;
+      transform: translateY(-10px);
+      }
+  
+      .addp{
+          margin-bottom: 20px;
+          background-color: #E1EBFF;
+          color: #414CAB;
+          font-weight: 700;
+      padding: 15px;
+      width: 190px;
+      border-radius: 15px;
+      text-align: center;
+      }
