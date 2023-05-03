@@ -1,3 +1,7 @@
+<?php 
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../styles/navbar.css">
+    <link rel="stylesheet" href="../styles/navbar.css?<?= time() ?>">
 </head>
 
 <body>
@@ -39,8 +43,8 @@
 
         
                 <!-- image profile -->
-                <div>
-                <a href="../pages/profile.php"> <img src="" alt=""></a>
+                <div class="circle_profile">
+                <a href="../pages/profile.php"> <img src=<?php echo $_SESSION["userdata"]['profile_image'] ?> alt="profile-image"></a>
                 </div>
 
             </div>

@@ -4,13 +4,7 @@ include '../includes/navbar.php';
 include '../includes/connection_to_sql.php';
 session_start();
 if(isset($_POST['book_info'])) {
-   
-   
-   
 $_SESSION['book_info']=$_POST['book_info'];
-   
-    
-    
 }
 $book_info = $_SESSION['book_info'];
 
@@ -20,33 +14,104 @@ $row=$result->fetch_assoc();
 $bookinfo=$row;
 $book_img="../".$row['image_path'];
 
-$sql = $conn->prepare("SELECT users.username,users.name, books.book_title,posts.post_title, posts.post_detail, posts.num_of_like  \n"
-. "FROM posts \n"
+if (isset($_POST["like"]) && isset($_POST["post_id"])) {
+    $post_id=$_POST["post_id"];
+$user_id=$_SESSION['userdata']['user_id'];
+    $query1 = "SELECT COUNT(*) as count FROM likes WHERE user_id = $user_id AND post_id = $post_id and is_liked='unlike'";
+$result = $conn->query($query1);
+$row = $result->fetch_assoc();
 
-. "JOIN books ON posts.book_id = books.book_id \n"
-
-. "JOIN users ON users.user_id = posts.user_id \n"
-
-. "WHERE books.book_id =?;");
-
-$sql->bind_param("i",$book_info);
-$result=$sql->execute();
-$post_of_eachbook_data = array(
-);
-if($result){
-    $sql->bind_result($username, $name,$book_title,$post_title,$post_detail,$num_of_like);
-    while($sql->fetch()){
-array_push($post_of_eachbook_data,array(
-    'username' => $username,
-    'name' => $name,
-    'book-title' => $book_title,
-    'post-title' => $post_title,
-    'post-desc' => $post_detail,
-    'number-like' => $num_of_like,
-    'number-comment' => 20
-));
+if ($row['count'] > 0) {
+  
+    $post_id = $_POST["post_id"];
+    $sql = "UPDATE posts SET num_of_like = num_of_like - 1 WHERE post_id = $post_id";
+    $conn->query($sql);
+    $query2 = "UPDATE likes set is_liked='like' WHERE user_id = $user_id AND post_id = $post_id";
+  $result = $conn->query($query2);
+} else {
+  
+    $post_id = $_POST["post_id"];
+    $sql = "UPDATE posts SET num_of_like = num_of_like + 1 WHERE post_id = $post_id";
+    $conn->query($sql);
+    $sql2="SELECT * from `likes` where post_id=$post_id AND user_id=$user_id and 'like'=is_liked ";
+   $res2= $conn->query($sql2);
+   $row=$res2->fetch_assoc();
+   if($res2->num_rows>0){
+       if($row['is_liked']=='like'){
+           $sql = "UPDATE likes SET  is_liked='unlike' where post_id = $post_id and post_id=$post_id";
+           $conn->query($sql);
+       }
     }
+    else{
+        $query3 = "INSERT INTO `likes` (user_id, post_id,is_liked) VALUES ($user_id, $post_id,'unlike')";
+        $conn->query($query3);
+
+    }
+ 
 }
+}
+
+$ui=$_SESSION['userdata']['user_id'];
+$sql = "SELECT l.user_id, p.post_id, p.post_title, p.post_detail, p.num_of_like, u.username, u.name, b.book_title, l.is_liked 
+        FROM posts p 
+        JOIN users u ON u.user_id = p.user_id 
+        JOIN books b ON b.book_id = p.book_id 
+        LEFT JOIN likes l ON l.post_id = p.post_id AND l.user_id =$ui
+        
+        where b.book_id=$book_info";
+
+$result = $conn->query($sql);
+
+
+// Create 2D array to hold data
+$data = array();
+
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        if(($row["is_liked"]==null)){
+
+            array_push($data,array(
+                'isliked'=>'../assets/like-user.svg',
+                'username' => $row["username"],
+                'name' => $row['name'],
+                'book-title' => $row['book_title'],
+                'post-title' => $row['post_title'],
+                'post-desc' => $row['post_detail'],
+                'number-like' => $row['num_of_like'],
+                'post_id'=>$row['post_id'],
+                'number-comment' => 20
+            ));
+        } else{
+            if($row['user_id']==$_SESSION['userdata']['user_id']&$row['is_liked']=='unlike'){
+                array_push($data,array(
+                    'isliked'=>'../assets/liked.svg',
+                    'username' => $row["username"],
+                    'name' => $row['name'],
+                    'book-title' => $row['book_title'],
+                    'post-title' => $row['post_title'],
+                    'post-desc' => $row['post_detail'],
+                    'number-like' => $row['num_of_like'],
+                    'post_id'=>$row['post_id'],
+                    'number-comment' => 20
+                ));
+            } else{
+                array_push($data,array(
+                    'isliked'=>'../assets/like-user.svg',
+                    'username' => $row["username"],
+                    'name' => $row['name'],
+                    'book-title' => $row['book_title'],
+                    'post-title' => $row['post_title'],
+                    'post-desc' => $row['post_detail'],
+                    'number-like' => $row['num_of_like'],
+                    'post_id'=>$row['post_id'],
+                    'number-comment' => 20
+                ));
+            }
+        }
+    }
+};
+
 
 
 ?>
@@ -90,49 +155,53 @@ array_push($post_of_eachbook_data,array(
 
 <div class="home-feed">
 
-    <?php
-    $counter = 0;
-   
-    for ($i = 0; $i < count($post_of_eachbook_data); $i++) {
-        echo "
-        <div class='posts'>
-        <div class='profile-info'>
-        
-           
-            <img class=img-profile src=../assets/profile-pic.png >
-            <div class=con-profile-data>
-            <div class=con-name-username>
-            <h3 class='name'>" . $post_of_eachbook_data[$i]['name']  . "</h3>
-            <h4 class='username'>" . $post_of_eachbook_data[$i]['username']  . "</h4>
-            </div>
-            <h4 class='username'>" . $post_of_eachbook_data[$i]['book-title'] . "</h4>
-            </div>
-          
-        </div>
-        <div class='post-info'>
-            <h2 class='title'>" . $post_of_eachbook_data[$i]['post-title'] . "</h2>
-            <p class='post-desc'>" . $post_of_eachbook_data[$i]['post-desc'] . "</p>
-        </div>
-        
+<?php
+$counter = 0;
+for ($i = 0; $i < count($data); $i++) {
 
-        <div class='reactions-info'>
-            <div class='like-num'>
-            <img class=like-reaction src=../assets/like-btn.svg >
-            " . $post_of_eachbook_data[$i]['number-like'] . "</div>
-            <div class='comment-num'>" . $post_of_eachbook_data[$i]['number-comment'] . " Comments</div>
+    echo "
+    <div class='posts'>
+    <div class='profile-info'>
+    
+       
+        <img class=img-profile src=../assets/profile-pic.png >
+        <div class=con-profile-data>
+        <div class=con-name-username>
+        <h3 class='name'>" . $data[$i]['name']  . "</h3>
+        <h4 class='username'>" . $data[$i]['username']  . "</h4>
         </div>
-        <div class=hr> </div>
-          <div class='buttons'>
-            <div class='like'>
-            <img class=like-user src=../assets/like-user.svg >
-            like </div>
-            <div class='comment'>
-            <img class=like-user src=../assets/comment.svg >comment</div>
-          </div>
+        <h4 class='username'>" . $data[$i]['book-title'] . "</h4>
         </div>
-    ";
-    }
-    ?>
+      
+    </div>
+    <div class='post-info'>
+        <h2 class='title'>" . $data[$i]['post-title'] . "</h2>
+        <p class='post-desc'>" . $data[$i]['post-desc'] . "</p>
+    </div>
+    
+
+    <div class='reactions-info'>
+        <div class='like-num'>
+        <img class=like-reaction src=../assets/like-btn.svg >
+        " . $data[$i]['number-like'] . "</div>
+        <div class='comment-num'>" . $data[$i]['number-comment'] . " Comments</div>
+    </div>
+    <div class=hr> </div>
+      <div class='buttons'>
+      <form method='post'>
+      <input type='hidden' name='post_id' value='" . $data[$i]['post_id'] . "'>
+      <button type='submit' name='like' class='like'>
+
+          <img class='like-user' src='".$data[$i]['isliked']."'>
+      </button>
+  </form>
+        <div class='comment'>
+        <img class=like-user src=../assets/comment.svg >comment</div>
+      </div>
+    </div>
+";
+}
+?>
 </div>
 </section>
 </body>

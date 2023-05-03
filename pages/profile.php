@@ -4,6 +4,7 @@ $logoPath = "../assets/logo.svg";
 include "../includes/navbar.php";
 include "../includes/connection_to_sql.php";
 $userdata = $_SESSION["userdata"];
+
 $userid = $conn->real_escape_string($userdata['user_id']);
 $sqlstt = $conn->prepare("SELECT books.book_title as title, books.num_of_posts `num-of-posts`, books.image_path FROM books where books.user_id=?;
 ");
@@ -32,6 +33,23 @@ if ($result) {
         array_push($bookdata, ['title' => $title, 'num-of-posts' => $num_of_posts, 'path'=>"../".$path]);
     }
 }
+
+if (isset($_FILES['fileToUpload'])) {
+
+    if ($_FILES['fileToUpload']['error'] == 0) {
+        
+        $file_path = $_FILES['fileToUpload']['tmp_name'];
+        $file_name = $_FILES['fileToUpload']['name'];
+
+        move_uploaded_file($file_path, "../uploads/" . $file_name);
+        $image_path = "uploads/" . $file_name;
+      $userdata["profile_image"]="../".$image_path;
+      $_SESSION['userdata']=$userdata;
+
+    }
+
+}
+
 ?>
 
 
@@ -50,24 +68,31 @@ if ($result) {
     rel="stylesheet">
     <link rel="stylesheet" href="../styles/profile.css?<?=time()?>">
     <script src="../js/profile.js" defer></script>
+    <script>
+    function submitForm() {
+        document.getElementById("myForm").submit();
+    }
+</script>
 </head>
 
 <body>
     <div class="main">
         <!-- left side  -->
         <div class="sideProfile">
-            <div class="imageprofile">
-                <img class="img" src="../assets/blank-profile-picture-hd-images-photo.JPG" alt="profile image">
-
-            </div>
+        <div class="imageprofile">
+    <form action="profile.php" method="post" enctype="multipart/form-data" id="myForm">
+        <label for="file-upload" class="custom-file-upload">
+            <img class="img" src=<?php echo $userdata['profile_image'] ?> alt="profile image">
+        </label>
+        <input style="display:none" id="file-upload" type="file" name="fileToUpload" onchange="submitForm()">
+    </form>
+</div>
             <div class="userinfo">
 
-                <!-- to retrive the name you just need put this code inside php tag -->
-                <!-- php echo $userdata['']  -->
+                
                 <h2><?php echo $userdata['name']?></h2>
 
-                <!-- to retrive the username you just need put this code inside php tag -->
-                <!-- php echo "@".$usedata[''] -->
+               
                 <h4 class="username"><?php echo $userdata['username']?></h4>
             </div>
             <div class="bookinfo">
