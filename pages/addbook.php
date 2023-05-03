@@ -27,8 +27,8 @@ if (isset($_POST['addbook'])) {
         echo "Please enter all required fields.";
     } else {
         $userid=intval($userdata['user_id']);
-        $stmt = $conn->prepare("INSERT INTO books (`user_id`,`book_title`, `book_description`, `image_path`) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("isss",$userid, $bookName, $bookDesc, $image_path);
+        $stmt = $conn->prepare("INSERT INTO books (`user_id`,`book_title`, `book_description`, `image_path`,`num_of_posts`) VALUES (?, ?, ?, ?,?)");
+        $stmt->bind_param("isssi",$userid, $bookName, $bookDesc, $image_path,0);
         $stmt->execute();
         $stmt->close();
         header("location: home.php");

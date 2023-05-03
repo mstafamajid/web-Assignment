@@ -2,11 +2,13 @@
 $logoPath = "../assets\logo.svg";
 include '../includes/navbar.php';
 include '../includes/connection_to_sql.php';
+
 if(isset($_POST['book_info'])) {
    
    
-    $book_info = json_decode($_POST['book_info'],true);
-     $book_info['book_id'];
+    $book_info = $_POST['book_info'];
+   
+    
     
 }
 
@@ -18,7 +20,8 @@ $sql = $conn->prepare("SELECT users.username,users.name, books.book_title,posts.
 . "JOIN users ON users.user_id = posts.user_id \n"
 
 . "WHERE books.book_id =?;");
-$sql->bind_param("i",$book_info['book_id']);
+
+$sql->bind_param("i",$book_info);
 $result=$sql->execute();
 $post_of_eachbook_data = array(
 );
@@ -36,6 +39,7 @@ array_push($post_of_eachbook_data,array(
 ));
     }
 }
+
 
 ?>
 
@@ -140,8 +144,8 @@ border-radius: 19px;
 
     <?php
     $counter = 0;
+   
     for ($i = 0; $i < count($post_of_eachbook_data); $i++) {
-
         echo "
         <div class='posts'>
         <div class='profile-info'>
@@ -169,7 +173,7 @@ border-radius: 19px;
             " . $post_of_eachbook_data[$i]['number-like'] . "</div>
             <div class='comment-num'>" . $post_of_eachbook_data[$i]['number-comment'] . " Comments</div>
         </div>
-        <div class=hr>. </div>
+        <div class=hr> </div>
           <div class='buttons'>
             <div class='like'>
             <img class=like-user src=../assets/like-user.svg >
