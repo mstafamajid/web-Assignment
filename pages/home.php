@@ -4,29 +4,46 @@ include "../includes/navbar.php";
 include '../includes/connection_to_sql.php';
 
 session_start();
+
+if (isset($_SESSION["userdata"])) {
+    $userdata = $_SESSION['userdata'];
+    //echo "welcome".$_SESSION['userdata']['name'];
+    // access
+}
 if (isset($_POST["like"]) && isset($_POST["post_id"])) {
     $post_id=$_POST["post_id"];
 $user_id=$_SESSION['userdata']['user_id'];
-    $query1 = "SELECT COUNT(*) as count FROM likes WHERE user_id = $user_id AND post_id = $post_id";
+    $query1 = "SELECT COUNT(*) as count FROM likes WHERE user_id = $user_id AND post_id = $post_id and is_liked='unlike'";
 $result = $conn->query($query1);
 $row = $result->fetch_assoc();
 
 if ($row['count'] > 0) {
+  
     $post_id = $_POST["post_id"];
     $sql = "UPDATE posts SET num_of_like = num_of_like - 1 WHERE post_id = $post_id";
     $conn->query($sql);
-    $query2 = "DELETE FROM likes WHERE user_id = $user_id AND post_id = $post_id";
+    $query2 = "UPDATE likes set is_liked='like' WHERE user_id = $user_id AND post_id = $post_id";
   $result = $conn->query($query2);
 } else {
-   
+  
     $post_id = $_POST["post_id"];
     $sql = "UPDATE posts SET num_of_like = num_of_like + 1 WHERE post_id = $post_id";
     $conn->query($sql);
-    $query3 = "INSERT INTO `likes` (user_id, post_id) VALUES ($user_id, $post_id)";
-    $conn->query($query3);
+    $sql2="SELECT * from `likes` where post_id=$post_id AND user_id=$user_id and 'like'=is_liked ";
+   $res2= $conn->query($sql2);
+   $row=$res2->fetch_assoc();
+    if($row['is_liked']==null){
+        $query3 = "INSERT INTO `likes` (user_id, post_id,is_liked) VALUES ($user_id, $post_id,'unlike')";
+        $conn->query($query3);
+    }else{
+        $sql = "UPDATE likes SET  is_liked='unlike' where post_id = $post_id and post_id=$post_id";
+        $conn->query($sql);
+
+    }
  
 }
 }
+
 if (!isset($_SESSION["userdata"])) {
     header("location:../index.php");
 }
@@ -36,10 +53,15 @@ if (isset($_POST["logout"])) {
     header("location:../index.php");
 }
 
-
-$sql = "SELECT p.post_id,p.book_id, u.name, u.username, p.post_title, p.post_detail, b.book_title,p.num_of_like FROM posts p , users u, books b where p.book_id=b.book_id and u.user_id=b.user_id;";
+$ui=$userdata['user_id'];
+$sql = "SELECT l.user_id, p.post_id, p.post_title, p.post_detail, p.num_of_like, u.username, u.name, b.book_title, l.is_liked 
+        FROM posts p 
+        JOIN users u ON u.user_id = p.user_id 
+        JOIN books b ON b.book_id = p.book_id 
+        LEFT JOIN likes l ON l.post_id = p.post_id AND l.user_id =$ui ";
 
 $result = $conn->query($sql);
+
 
 // Create 2D array to hold data
 $data = array();
@@ -47,26 +69,49 @@ $data = array();
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $data[] = array(
-            'username' => $row["username"],
-            'name' => $row['name'],
-            'book-title' => $row['book_title'],
-            'post-title' => $row['post_title'],
-            'post-desc' => $row['post_detail'],
-            'number-like' => $row['num_of_like'],
-            'post_id'=>$row['post_id'],
-            'number-comment' => 20
-        );
+        if(($row["is_liked"]==null)){
+
+            array_push($data,array(
+                'isliked'=>'like',
+                'username' => $row["username"],
+                'name' => $row['name'],
+                'book-title' => $row['book_title'],
+                'post-title' => $row['post_title'],
+                'post-desc' => $row['post_detail'],
+                'number-like' => $row['num_of_like'],
+                'post_id'=>$row['post_id'],
+                'number-comment' => 20
+            ));
+        } else{
+            if($row['user_id']==$_SESSION['userdata']['user_id']&$row['is_liked']=='unlike'){
+                array_push($data,array(
+                    'isliked'=>'unlike',
+                    'username' => $row["username"],
+                    'name' => $row['name'],
+                    'book-title' => $row['book_title'],
+                    'post-title' => $row['post_title'],
+                    'post-desc' => $row['post_detail'],
+                    'number-like' => $row['num_of_like'],
+                    'post_id'=>$row['post_id'],
+                    'number-comment' => 20
+                ));
+            } else{
+                array_push($data,array(
+                    'isliked'=>'like',
+                    'username' => $row["username"],
+                    'name' => $row['name'],
+                    'book-title' => $row['book_title'],
+                    'post-title' => $row['post_title'],
+                    'post-desc' => $row['post_detail'],
+                    'number-like' => $row['num_of_like'],
+                    'post_id'=>$row['post_id'],
+                    'number-comment' => 20
+                ));
+            }
+        }
     }
 };
 
-
-
-if (isset($_SESSION["userdata"])) {
-    $userdata = $_SESSION['userdata'];
-    //echo "welcome".$_SESSION['userdata']['name'];
-    // access
-}
 ?>
 
 <!DOCTYPE html>
@@ -160,8 +205,9 @@ if (isset($_SESSION["userdata"])) {
                   <form method='post'>
                   <input type='hidden' name='post_id' value='" . $data[$i]['post_id'] . "'>
                   <button type='submit' name='like' class='like'>
-                      <img class='like-user' src='../assets/like-user.svg'>
-                      like
+
+                      <img class='like-user' src='../assets/like-user.svg'>".
+                      $data[$i]['isliked']."
                   </button>
               </form>
                     <div class='comment'>
