@@ -2,17 +2,25 @@
 $logoPath = "../assets\logo.svg";
 include '../includes/navbar.php';
 include '../includes/connection_to_sql.php';
-
+session_start();
 if(isset($_POST['book_info'])) {
    
    
-    $book_info = $_POST['book_info'];
+   
+$_SESSION['book_info']=$_POST['book_info'];
    
     
     
 }
+$book_info = $_SESSION['book_info'];
 
-$sql = $conn->prepare("SELECT users.username,users.name, books.book_title,posts.post_title, posts.post_detail, posts.num_of_like \n"
+$sql_book="SELECT * from books where book_id=$book_info";
+$result=$conn->query($sql_book);
+$row=$result->fetch_assoc();
+$bookinfo=$row;
+$book_img="../".$row['image_path'];
+
+$sql = $conn->prepare("SELECT users.username,users.name, books.book_title,posts.post_title, posts.post_detail, posts.num_of_like  \n"
 . "FROM posts \n"
 
 . "JOIN books ON posts.book_id = books.book_id \n"
@@ -52,60 +60,8 @@ array_push($post_of_eachbook_data,array(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../styles/home.css?<?=time()?>">
-<!--     
-    <style>
-        .main {
-            display: flex;
-            flex-direction: row;
-            gap: 30px;
-            height: 100%;
-            width: 100%;
-        }
-
-        .side {
-            display: flex;
-            flex-direction: column;
-          
-width: 291.96px;
-height: 641px;
-
-
-background: green;
-border-radius: 19px;
-        }
-
-
-        .home-feed {
-
-            padding-top: 50px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 90px;
-            background-color: grey;
-            height: 100%;
-
-            width: 80%;
-        }
-
-        .posts {
-
-            height: 340px;
-            width: 638px;
-            background-color: #FFF;
-            border-radius: 20px;
-        }
-
-        .buttons {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            height: 30px;
-            width: 100%;
-            background-color: red;
-            border-radius: 0px 0px 20px 20px;
-        }
-    </style> -->
+<link rel="stylesheet" href="../styles/posts_of_book.css?<?=time()?>">
+  
    
 </head>
 <body>
@@ -113,27 +69,19 @@ border-radius: 19px;
 
 <div class="side">
     <ul class="sidebar">
-        <li>
+    <div class='eachbook'>
+       
+<?php     echo    "<img class='coverbook' src='".$book_img."'>"  ?>      
+       <div class='title'>
+           <h4 class="bookTitle"><?php  echo $bookinfo['book_title'] ?></h4>
+           </div>
 
-            <a href=""></a>
-        </li>
-        <li>
-            <img class="img-sidebar" src="../assets/add-book-sidebar.svg" alt="" srcset=""><a
-                href="../pages/addbook.php">add
-                books</a>
-        </li>
-        <li>
-            <img class="img-sidebar" src="../assets/add-post.svg" alt="" srcset=""><a
-                href="../pages/addposts.php">add
-                posts</a>
-        </li>
-        <li>
-            <img class="img-sidebar" src="../assets/books.svg" alt="" srcset=""><a href="">books</a>
-        </li>
-        <div class="hr"></div>
-        <form action="home.php" method="post" >
-            <input type="submit" value="logout" name="logout">
-        </form>
+           <div class='desc'>
+            <h3>Description</h3>
+            <p class="description"><?php echo $bookinfo['book_description'] ?></p>
+       </div>
+
+<a href="../pages/addposts.php" class="addp">Add Post</a>
 
     </ul>
 
