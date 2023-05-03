@@ -15,11 +15,37 @@ nav div ul {
   display: flex;
   flex-direction: row;
 }
-nav div ul li a {
+
+nav div ul li a {  
+  text-decoration: none; 
   text-decoration: none;
   font-weight: 600;
   color: #2e3467;
+  position: relative;
 }
+
+nav div ul li a:hover::after { 
+  content: ''; 
+  display: block; 
+  height: 2px; 
+  width: 100%; 
+  background-color: #2e3467; 
+  position: absolute; 
+  bottom: 0; 
+  left: 0; 
+  animation: line-anim 0.2s forwards; 
+} 
+ 
+@keyframes line-anim { 
+  from { 
+    width: 0; 
+  } 
+  to { 
+    width: 100%; 
+  } 
+}
+
+
 li {
   list-style: none;
 }
