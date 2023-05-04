@@ -29,6 +29,7 @@ body {
     height: 428.56px;
     background: #FFFFFF;
     border-radius: 15.8789px;
+    
    
 }
 
@@ -44,7 +45,7 @@ body {
 
 
 .seepost form input {
-  
+    cursor: pointer;
     width: 207.26px;
     height: 35.1px;
     font-family: 'poppins';

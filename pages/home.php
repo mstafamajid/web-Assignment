@@ -2,7 +2,9 @@
 $logoPath = "../assets\logo.svg";
 include "../includes/navbar.php";
 include '../includes/connection_to_sql.php';
-
+if (!isset($_SESSION["userdata"])) {
+    header("location:../index.php");
+}
 if(isset($_POST["delete"])){
     $postid=$_POST["delete"];
     $selectedbook=$_POST["book_id"];
@@ -56,9 +58,7 @@ if ($row['count'] > 0) {
 }
 }
 
-if (!isset($_SESSION["userdata"])) {
-    header("location:../index.php");
-}
+
 if (isset($_POST["logout"])) {
 
     session_destroy();
@@ -66,7 +66,7 @@ if (isset($_POST["logout"])) {
 }
 
 $ui=$userdata['user_id'];
-$sql = "SELECT b.book_id, l.user_id, p.post_id, p.post_title, p.post_detail, p.num_of_like, u.username, u.name, b.book_title, l.is_liked 
+$sql = "SELECT u.profile_image, b.book_id, l.user_id, p.post_id, p.post_title, p.post_detail, p.num_of_like, u.username, u.name, b.book_title, l.is_liked 
         FROM posts p 
         JOIN users u ON u.user_id = p.user_id 
         JOIN books b ON b.book_id = p.book_id 
@@ -88,6 +88,7 @@ if ($result->num_rows > 0) {
             array_push($data,array(
                 'isliked'=>'../assets/like-user.svg',
                 'username' => $row["username"],
+                'image'=>$row['profile_image'],
                 'book_id'=>$row['book_id'],
                 'name' => $row['name'],
                 'book-title' => $row['book_title'],
@@ -103,7 +104,7 @@ if ($result->num_rows > 0) {
                     'isliked'=>'../assets/liked.svg',
                     'username' => $row["username"],
                 'book_id'=>$row['book_id'],
-
+                'image'=>$row['profile_image'],
                     'name' => $row['name'],
                     'book-title' => $row['book_title'],
                     'post-title' => $row['post_title'],
@@ -116,6 +117,7 @@ if ($result->num_rows > 0) {
                 array_push($data,array(
                     'isliked'=>'../assets/like-user.svg',
                     'username' => $row["username"],
+                    'image'=>$row['profile_image'],
                     'name' => $row['name'],
                 'book_id'=>$row['book_id'],
 
@@ -197,7 +199,7 @@ if ($result->num_rows > 0) {
                 <div class='profile-info'>
                 
                    <div class='info_pack'>
-                    <img class=img-profile src=../assets/profile-pic.png >
+                    <img class=img-profile src=" . $data[$i]['image']  . " >
                     <div class=con-profile-data>
                     <div class=con-name-username>
                     <h3 class='name'>" . $data[$i]['name']  . "</h3>

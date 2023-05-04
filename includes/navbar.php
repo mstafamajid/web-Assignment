@@ -22,7 +22,7 @@ session_start();
             <ul>
                 <li><a href="home.php">Home</a></li>
                 <li><a href="books.php">Books</a></li>
-                <li><a href="profile.php">Profile</a></li>
+                <li><a href="../pages/profile.php">Profile</a></li>
                 <li><a href="aboutUs.php">About Us</a></li>
 
             </ul>

@@ -2,7 +2,9 @@
 
 $logoPath = "../assets\logo.svg";
 include '../includes/navbar.php';
-
+if (!isset($_SESSION["userdata"])) {
+    header("location:../index.php");
+}
 ?>
 
 

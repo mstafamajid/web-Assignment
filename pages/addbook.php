@@ -2,7 +2,9 @@
 $logoPath = "../assets/logo.svg";
 include '../includes/navbar.php';
 include '../includes/connection_to_sql.php';
-
+if (!isset($_SESSION["userdata"])) {
+    header("location:../index.php");
+}
 
 $userdata=$_SESSION['userdata'];
 if (isset($_FILES['image'])) {
@@ -24,11 +26,12 @@ if (isset($_POST['addbook'])) {
     $bookDesc = $_POST['book-desc'];
 
     if (empty($bookName) || empty($bookDesc)) {
-        echo "Please enter all required fields.";
+        echo '<script>alert("Please enter all required fields.")</script>';
     } else {
         $userid=intval($userdata['user_id']);
+        $num=0;
         $stmt = $conn->prepare("INSERT INTO books (`user_id`,`book_title`, `book_description`, `image_path`,`num_of_posts`) VALUES (?, ?, ?, ?,?)");
-        $stmt->bind_param("isssi",$userid, $bookName, $bookDesc, $image_path,0);
+        $stmt->bind_param("isssi",$userid, $bookName, $bookDesc, $image_path,$num);
         $stmt->execute();
         $stmt->close();
         header("location: home.php");

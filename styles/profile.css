@@ -135,6 +135,11 @@ border: 3px solid white;
   width: 109.09px;
   height: 146.75px;
 }
+#kak-mhm{
+  background-color: transparent;
+  color: white;
+  border: none;
+}
 .aboutM{
   display: none;
 }
@@ -146,11 +151,16 @@ border: 3px solid white;
 .aboutM form input{
   margin: 10px;
   padding: 10px 50px;
-  background-color: #2e3467;
+  background-color: rgb(241, 47, 47);
   border-radius: 45px;
   color: white;
+  font-weight: bold;
+transition: 0.2s;
   cursor: pointer;
   border: none;
+}
+.aboutM form input:hover{
+  box-shadow: 0px 0px 2px rgb(244, 4, 4);
 }
 .aboutM a{
   text-decoration: underline;

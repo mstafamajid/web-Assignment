@@ -6,22 +6,26 @@ body {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-form input.log{
+
+form input.log {
   margin: 10px;
   padding: 10px 70px;
-  background-color: #2e3467;
+  background-color: rgb(241, 47, 47);
   border-radius: 45px;
   color: white;
+  font-weight: bold;
   cursor: pointer;
   border: none;
   font-family: 'Poppins';
-  transition:  0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
-input.log:hover{
-box-shadow: 0 0 8px #414cab;
+
+form input.log:hover {
+  box-shadow: 0px 0px 2px rgb(244, 4, 4);
+}
 
 
-}
+
 .container {
   margin-top: 50px;
   display: flex;
@@ -32,17 +36,23 @@ box-shadow: 0 0 8px #414cab;
   min-height: 100vh;
   background-color: #ebebeb;
 }
-.like{
-  
-    background-color: transparent;
-    color: white; /* Set text color */
-    padding: 12px 20px; /* Add padding */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Add rounded corners */
-    cursor: pointer; /* Add mouse pointer on hover */
-  
-  
- 
+
+.like {
+
+  background-color: transparent;
+  color: white;
+  /* Set text color */
+  padding: 12px 20px;
+  /* Add padding */
+  border: none;
+  /* Remove border */
+  border-radius: 4px;
+  /* Add rounded corners */
+  cursor: pointer;
+  /* Add mouse pointer on hover */
+
+
+
 
 }
 
@@ -121,16 +131,19 @@ a {
   width: 100%;
 
 }
-.profile-info .info_pack{
-display: flex;
-flex-direction: row;
 
-gap: 10px;
+.profile-info .info_pack {
+  display: flex;
+  flex-direction: row;
+
+  gap: 10px;
 }
-#deletepost{
+
+#deletepost {
   background-color: transparent;
   border: none;
 }
+
 .name {
   font-size: 13px;
   font-weight: 600;
@@ -146,6 +159,7 @@ gap: 10px;
   margin: 0;
   padding: 0;
 }
+
 .con-profile-data {
   display: flex;
   gap: 2px;
@@ -153,6 +167,7 @@ gap: 10px;
   justify-content: flex-start;
   align-self: flex-start;
 }
+
 .con-name-username {
   display: flex;
   gap: 3px;
@@ -166,15 +181,15 @@ gap: 10px;
 }
 
 .post-desc {
-  min-height: 50px; 
+  min-height: 50px;
   max-height: 200px;
   overflow-y: scroll;
   font-size: 16px;
- 
+
 
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 
@@ -232,14 +247,16 @@ gap: 10px;
   width: 20px;
   height: 20px;
 }
+
 .comment {
   display: none;
   justify-content: center;
   align-items: center;
   gap: 4px;
 }
-.comment-num{
-display: none;
+
+.comment-num {
+  display: none;
 }
 
 /*responsive */
@@ -253,7 +270,8 @@ display: none;
     padding: 100px;
     margin: 0px;
   }
-  .posts{
+
+  .posts {
     max-width: 240px;
     min-width: 240px;
     min-height: 310px;

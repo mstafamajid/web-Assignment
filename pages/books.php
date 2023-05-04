@@ -4,7 +4,9 @@
 $logoPath = "../assets\logo.svg";
 include '../includes/navbar.php';
 include '../includes/connection_to_sql.php';
-
+if (!isset($_SESSION["userdata"])) {
+    header("location:../index.php");
+}
 $sql = "SELECT * from books";
 $result = $conn->query($sql);
 

@@ -16,6 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errors[$field] = ucfirst(str_replace("-", " ", $field)) . " is required.";
         } else {
             $data[$field] = $_POST[$field];
+           
+        if ($field === 'password' && strlen($_POST[$field]) < 8) {
+            $errors['password'] = "Password must be at least 8 characters long.";
+        }
         }
     }
 
@@ -26,8 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['password']) && !empty($_POST['confirm-password']) && $_POST['password'] !== $_POST['confirm-password']) {
         $errors['confirm-password'] = "Passwords do not match.";
     }
-$username=$conn->real_escape_string( $data['username']);
-$email=$conn->real_escape_string( $data['email']);
+    $username = isset($data['username']) ? $conn->real_escape_string($data['username']) : '';
+    $email = isset($data['email']) ? $conn->real_escape_string($data['email']) : '';
+    
 
     // Check if username and email already exist in database
     $stmt = $conn->prepare("SELECT * FROM `users` WHERE `username` = ? OR `email` = ?");

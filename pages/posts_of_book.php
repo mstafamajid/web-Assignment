@@ -2,7 +2,9 @@
 $logoPath = "../assets\logo.svg";
 include '../includes/navbar.php';
 include '../includes/connection_to_sql.php';
-
+if (!isset($_SESSION["userdata"])) {
+    header("location:../index.php");
+}
 if(isset($_POST["delete"])){
     $postid=$_POST["delete"];
     $selectedbook=$_POST["book_id"];
@@ -62,7 +64,7 @@ if ($row['count'] > 0) {
 }
 
 $ui=$_SESSION['userdata']['user_id'];
-$sql = "SELECT b.book_id, l.user_id, p.post_id, p.post_title, p.post_detail, p.num_of_like, u.username, u.name, b.book_title, l.is_liked 
+$sql = "SELECT u.profile_image, b.book_id, l.user_id, p.post_id, p.post_title, p.post_detail, p.num_of_like, u.username, u.name, b.book_title, l.is_liked 
         FROM posts p 
         JOIN users u ON u.user_id = p.user_id 
         JOIN books b ON b.book_id = p.book_id 
@@ -91,6 +93,7 @@ if ($result->num_rows > 0) {
                 'post-title' => $row['post_title'],
                 'post-desc' => $row['post_detail'],
                 'number-like' => $row['num_of_like'],
+                'image'=>$row['profile_image'],
                 'post_id'=>$row['post_id'],
                 'number-comment' => 20
             ));
@@ -106,6 +109,7 @@ if ($result->num_rows > 0) {
                     'post-title' => $row['post_title'],
                     'post-desc' => $row['post_detail'],
                     'number-like' => $row['num_of_like'],
+                    'image'=>$row['profile_image'],
                     'post_id'=>$row['post_id'],
                     'number-comment' => 20
                 ));
@@ -115,7 +119,7 @@ if ($result->num_rows > 0) {
                     'username' => $row["username"],
                     'name' => $row['name'],
                 'book_id'=>$row['book_id'],
-
+                'image'=>$row['profile_image'],
                     'book-title' => $row['book_title'],
                     'post-title' => $row['post_title'],
                     'post-desc' => $row['post_detail'],
@@ -183,7 +187,7 @@ for ($i = 0; $i < count($data); $i++) {
     <div class='profile-info'>
     
        <div class='info_pack'>
-        <img class=img-profile src=../assets/profile-pic.png >
+       <img class=img-profile src=" . $data[$i]['image']  . " >
         <div class=con-profile-data>
         <div class=con-name-username>
         <h3 class='name'>" . $data[$i]['name']  . "</h3>
