@@ -130,7 +130,7 @@ body {
 
     .container {
         margin: 0;
-        margin-right: 100px;
+        /* margin-right: 100px; */
     }
 
     .leftSide {

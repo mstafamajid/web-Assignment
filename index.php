@@ -58,7 +58,7 @@ $username_escaped=$conn->real_escape_string($username);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<link rel="stylesheet" href="styles/index.css">
+<link rel="stylesheet" href="styles/index.css?<?=time()?>">
 
 
 </head>
@@ -103,10 +103,11 @@ $username_escaped=$conn->real_escape_string($username);
                 </div>
                 <input type="submit" value="Login"><br><br>
                 <div>
-                    <a href="signup.php" class="btnM">Sign Up</a>
+                    <a href="login-signup/signup.php" class="btnM">Sign Up</a>
                 </div>
 
                 <?php
+                
                 if (!empty($error))
                     echo " <span >$error</span>"
                 ?>

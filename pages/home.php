@@ -3,7 +3,16 @@ $logoPath = "../assets\logo.svg";
 include "../includes/navbar.php";
 include '../includes/connection_to_sql.php';
 
+if(isset($_POST["delete"])){
+    $postid=$_POST["delete"];
+    $selectedbook=$_POST["book_id"];
+    $sql="DELETE from posts where post_id='$postid'";
+    $stmt_update=$conn->prepare("UPDATE books SET num_of_posts = num_of_posts - 2 WHERE book_id = ?");
+    $stmt_update->bind_param("i",$selectedbook);
+    $stmt_update->execute();
+    $conn->query($sql);
 
+}
 
 if (isset($_SESSION["userdata"])) {
     $userdata = $_SESSION['userdata'];
@@ -57,7 +66,7 @@ if (isset($_POST["logout"])) {
 }
 
 $ui=$userdata['user_id'];
-$sql = "SELECT l.user_id, p.post_id, p.post_title, p.post_detail, p.num_of_like, u.username, u.name, b.book_title, l.is_liked 
+$sql = "SELECT b.book_id, l.user_id, p.post_id, p.post_title, p.post_detail, p.num_of_like, u.username, u.name, b.book_title, l.is_liked 
         FROM posts p 
         JOIN users u ON u.user_id = p.user_id 
         JOIN books b ON b.book_id = p.book_id 
@@ -79,6 +88,7 @@ if ($result->num_rows > 0) {
             array_push($data,array(
                 'isliked'=>'../assets/like-user.svg',
                 'username' => $row["username"],
+                'book_id'=>$row['book_id'],
                 'name' => $row['name'],
                 'book-title' => $row['book_title'],
                 'post-title' => $row['post_title'],
@@ -92,6 +102,8 @@ if ($result->num_rows > 0) {
                 array_push($data,array(
                     'isliked'=>'../assets/liked.svg',
                     'username' => $row["username"],
+                'book_id'=>$row['book_id'],
+
                     'name' => $row['name'],
                     'book-title' => $row['book_title'],
                     'post-title' => $row['post_title'],
@@ -105,6 +117,8 @@ if ($result->num_rows > 0) {
                     'isliked'=>'../assets/like-user.svg',
                     'username' => $row["username"],
                     'name' => $row['name'],
+                'book_id'=>$row['book_id'],
+
                     'book-title' => $row['book_title'],
                     'post-title' => $row['post_title'],
                     'post-desc' => $row['post_detail'],
@@ -164,7 +178,7 @@ if ($result->num_rows > 0) {
                 </li>
                 <div class="hr"></div>
                 <form action="home.php" method="post">
-                    <input type="submit" value="logout" name="logout">
+                    <input type="submit" value="logout" name="logout" class="log">
                 </form>
 
             </ul>
@@ -182,7 +196,7 @@ if ($result->num_rows > 0) {
                 <div class='posts'>
                 <div class='profile-info'>
                 
-                   
+                   <div class='info_pack'>
                     <img class=img-profile src=../assets/profile-pic.png >
                     <div class=con-profile-data>
                     <div class=con-name-username>
@@ -191,38 +205,54 @@ if ($result->num_rows > 0) {
                     </div>
                     <h4 class='username'>" . $data[$i]['book-title'] . "</h4>
                     </div>
+                    </div>";
+
+                   
+                    if ($data[$i]['username']==$_SESSION['userdata']['username']) {
+                        echo "<form action='home.php' method='post'>
+                        <input type='hidden' name='book_id' value='".$data[$i]['book_id']."'>
+                        <button type='submit' name='delete' id='deletepost' value='". $data[$i]['post_id']."'> <img src='../assets/delete.svg' alt=''></button>
+                     </form>";
+                    }
+                    
+                      
+                    
                   
-                </div>
-                <div class='post-info'>
+                    
+                  echo"  </div>
+                    <div class='post-info'>
                     <h2 class='title'>" . $data[$i]['post-title'] . "</h2>
                     <p class='post-desc'>" . $data[$i]['post-desc'] . "</p>
-                </div>
-                
-
-                <div class='reactions-info'>
+                    </div>
+                    
+                    
+                    <div class='reactions-info'>
                     <div class='like-num'>
                     <img class=like-reaction src=../assets/like-btn.svg >
                     " . $data[$i]['number-like'] . "</div>
                     <div class='comment-num'>" . $data[$i]['number-comment'] . " Comments</div>
-                </div>
-                <div class=hr> </div>
-                  <div class='buttons'>
-                  <form method='post'>
-                  <input type='hidden' name='post_id' value='" . $data[$i]['post_id'] . "'>
-                  <button type='submit' name='like' class='like'>
-
-                      <img class='like-user' src='".$data[$i]['isliked']."'>
-                  </button>
-              </form>
+                    </div>
+                    <div class=hr> </div>
+                    <div class='buttons'>
+                    <form method='post'>
+                    <input type='hidden' name='post_id' value='" . $data[$i]['post_id'] . "'>
+                    <button type='submit' name='like' class='like'>
+                    
+                    <img class='like-user' src='".$data[$i]['isliked']."'>
+                    </button>
+                    </form>
                     <div class='comment'>
                     <img class=like-user src=../assets/comment.svg >comment</div>
-                  </div>
-                </div>
-            ";
-            }
-            ?>
+                    </div>
+                    </div>
+                    ";
+                }
+                ?>
+                 
         </div>
+      
     </section>
 </body>
+
 
 </html>

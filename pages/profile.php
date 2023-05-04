@@ -5,7 +5,11 @@ include "../includes/navbar.php";
 include "../includes/connection_to_sql.php";
 
 $userdata = $_SESSION["userdata"];
+if (isset($_POST["logout"])) {
 
+    session_destroy();
+    header("location:../index.php");
+}
 $userid = $conn->real_escape_string($userdata['user_id']);
 $sqlstt = $conn->prepare("SELECT books.book_title as title, books.num_of_posts `num-of-posts`, books.image_path FROM books where books.user_id=?;
 ");
@@ -15,10 +19,8 @@ $sqlstt_num->execute();
 $sqlstt_num->bind_result($num_of_book,$num_of_post);
 $sqlstt_num->fetch();
 $sqlstt_num->free_result(); 
-// $sqlstt_sum=$conn->prepare("SELECT COUNT(post_id) FROM `posts` WHERE user_id=$userid;");
-// $sqll_info=$conn->prepare("SELECT books.book_title,books.image_path FROM books join users on users.user_id=books.user_id WHERE users.user_id=7;");
-// $result_info=$sqll_info=
-$userdata['num-of-post'] = $num_of_post;
+
+$userdata['num-of-post'] = $num_of_post/2;
 $userdata['num-of-book'] = $num_of_book;
 $bookdata = [];
 
@@ -130,7 +132,7 @@ for ($i=0; $i < count($bookdata); $i++) {
  
   <div class='info-about-eachbook'>
   <h4>".$bookdata[$i]['title']."</h4>
-  <p>".$bookdata[$i]['num-of-posts']." posts</p>
+  <p>".$bookdata[$i]['num-of-posts']/2 ." posts</p>
   </div>
 </div>";
 }
@@ -140,6 +142,9 @@ for ($i=0; $i < count($bookdata); $i++) {
         </div>
 
         <div class="aboutM">
+            <form action="profile.php" method="post">
+                <input type="submit" name="logout"value="logout">
+            </form>
         <a href="aboutUs.php">About Us</a>
 <p class="coppyR">© 2023 KoyaUniveristy. All rights reserved.</p>
 </div>

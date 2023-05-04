@@ -44,7 +44,7 @@ width: 724px;
 }
 .imageprofile{
  
-  padding: 20px;
+  padding: 80px;
   
   width: 209.01px;
   height: 303.15px;
@@ -84,7 +84,7 @@ width: 724px;
 }
 
 .img {
-  width: 209px;
+  width: 180px;
   height: 303px;
   object-fit: cover;
   border-radius: 30px;
@@ -142,6 +142,15 @@ border: 3px solid white;
   .aboutM{
     text-align: center;
     display: inline;
+}
+.aboutM form input{
+  margin: 10px;
+  padding: 10px 50px;
+  background-color: #2e3467;
+  border-radius: 45px;
+  color: white;
+  cursor: pointer;
+  border: none;
 }
 .aboutM a{
   text-decoration: underline;

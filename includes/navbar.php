@@ -14,7 +14,7 @@ session_start();
 </head>
 
 <body>
-    <nav>
+    <nav class="nav">
         <div>
         <a href="../pages/home.php"> <?php echo " <img src='$logoPath' alt='logo'>" ?> </a>
         </div>
@@ -29,16 +29,8 @@ session_start();
         </div>
         <div id='srch-ic'>
             <!-- search svg code -->
-            <div class="srch">
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6 svg">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>
-
-            </div>
-            <input type="search" name="search" id="search-field">
+           
+          
             <div>
 
         

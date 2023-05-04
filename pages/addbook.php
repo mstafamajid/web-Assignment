@@ -3,7 +3,7 @@ $logoPath = "../assets/logo.svg";
 include '../includes/navbar.php';
 include '../includes/connection_to_sql.php';
 
-session_start();
+
 $userdata=$_SESSION['userdata'];
 if (isset($_FILES['image'])) {
 

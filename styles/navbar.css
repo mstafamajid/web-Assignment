@@ -1,5 +1,5 @@
-
-nav {
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+.nav {
   background-color: #ffff;
   position: fixed;
   top: 0;
@@ -10,6 +10,7 @@ nav {
   flex-direction: row;
   box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.09);
   padding: 0.5rem 0 0.5rem 0;
+  font-family: 'Poppins';
 }
 
 .circle_profile img {
@@ -19,21 +20,22 @@ nav {
   border-radius: 50%;
 }
 
-nav div ul {
+.nav div ul {
   gap: 70px;
   display: flex;
   flex-direction: row;
 }
 
-nav div ul li a {
-  text-decoration: none;
-  text-decoration: none;
+.nav div ul li a {
+  text-decoration: none !important;
+
   font-weight: 600;
   color: #2e3467;
   position: relative;
 }
 
-nav div ul li a:hover::after {
+
+.nav div ul li a:hover::after {
   content: '';
   display: block;
   height: 2px;
@@ -57,7 +59,7 @@ nav div ul li a:hover::after {
 
 
 li {
-  list-style: none;
+  list-style: none !important;
 }
 
 #srch-ic {
@@ -114,6 +116,9 @@ li {
 
 /*responsive */
 @media screen and (max-width: 500px) {
+  .mobNav a{
+    text-decoration: none;
+  }
   .topBar {
     position: fixed;
     width: 100%;
@@ -136,7 +141,7 @@ li {
     margin-left: 220px;
   }
 
-  nav {
+  .nav {
     display: none;
   }
 
@@ -183,6 +188,9 @@ li {
   .mobNav ul li {
     transition: 0.2s;
     padding: 10px 25px 10px 25px;
+
+      list-style: none !important;
+    
   }
 
   .mobNav ul li:hover {

@@ -6,7 +6,7 @@ include '../includes/connection_to_sql.php';
 
 
 
-session_start();
+
 
 $userdata=$_SESSION['userdata'];
 $userid=$userdata['user_id'];
@@ -58,7 +58,7 @@ if(isset($_POST["submit"])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../styles/addposts.css">
+    <link rel="stylesheet" href="../styles/addposts.css?<?=time()?>">
     <style>
     
     </style>

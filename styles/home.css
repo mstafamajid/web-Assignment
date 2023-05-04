@@ -6,7 +6,22 @@ body {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+form input.log{
+  margin: 10px;
+  padding: 10px 70px;
+  background-color: #2e3467;
+  border-radius: 45px;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-family: 'Poppins';
+  transition:  0.2s ease-in-out;
+}
+input.log:hover{
+box-shadow: 0 0 8px #414cab;
 
+
+}
 .container {
   margin-top: 50px;
   display: flex;
@@ -101,6 +116,20 @@ a {
   display: flex;
   gap: 10px;
   align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+
+}
+.profile-info .info_pack{
+display: flex;
+flex-direction: row;
+
+gap: 10px;
+}
+#deletepost{
+  background-color: transparent;
+  border: none;
 }
 .name {
   font-size: 13px;
@@ -204,10 +233,13 @@ a {
   height: 20px;
 }
 .comment {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   gap: 4px;
+}
+.comment-num{
+display: none;
 }
 
 /*responsive */
